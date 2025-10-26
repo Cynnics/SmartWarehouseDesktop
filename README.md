@@ -86,7 +86,7 @@ SmartWarehouseDesktop/
 - Git (opcional, para clonar el repositorio)
 
 ### 2️⃣ Clonar el repositorio
-```bash
+
 git clone https://github.com/tuUsuario/SmartWarehouseDesktop.git
 3️⃣ Configurar la base de datos
 Crear una base de datos smartwarehouse_db en MySQL.
