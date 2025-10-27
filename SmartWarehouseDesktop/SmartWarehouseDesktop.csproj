@@ -96,11 +96,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="CRUDs\FormDetallesPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormDetallesPedido.Designer.cs">
+      <DependentUpon>FormDetallesPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormPedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormPedidos.Designer.cs">
+      <DependentUpon>FormPedidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="CRUDs\FormProductos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CRUDs\FormProductos.Designer.cs">
       <DependentUpon>FormProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormUbicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormUbicaciones.Designer.cs">
+      <DependentUpon>FormUbicaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormUsuarios.Designer.cs">
+      <DependentUpon>FormUsuarios.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\Prompt.cs" />
     <Compile Include="DAOs\DetallePedidoDAO.cs" />
@@ -121,8 +145,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CRUDs\FormDetallesPedido.resx">
+      <DependentUpon>FormDetallesPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormPedidos.resx">
+      <DependentUpon>FormPedidos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormProductos.resx">
       <DependentUpon>FormProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormUbicaciones.resx">
+      <DependentUpon>FormUbicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormUsuarios.resx">
+      <DependentUpon>FormUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

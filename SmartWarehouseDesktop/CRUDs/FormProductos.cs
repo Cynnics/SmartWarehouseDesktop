@@ -109,10 +109,6 @@ namespace SmartWarehouseDesktop.CRUDs
             }
         }
 
-        // Botón: Actualizar
-        private void btnActualizar_Click(object sender, EventArgs e)
-        {
-            CargarProductos();
-        }
+       
     }
 }
