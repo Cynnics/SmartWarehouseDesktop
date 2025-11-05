@@ -1,0 +1,63 @@
+﻿1. Descripción global del proyecto
+
+El presente proyecto consiste en el desarrollo de una plataforma multiplataforma para la gestión integral de pedidos y entregas en pequeñas y medianas empresas (pymes).
+
+El sistema contará con dos aplicaciones principales:
+
+Aplicación de escritorio (para administradores y empleados), que permitirá gestionar clientes, productos y pedidos, así como generar facturas y albaranes, planificar rutas de entrega y obtener informes de ventas y estadísticas.
+
+Aplicación móvil Android (para repartidores y clientes), que permitirá a los repartidores consultar sus pedidos asignados, utilizar el GPS para visualizar rutas en Google Maps y actualizar el estado de las entregas en tiempo real. Los clientes, opcionalmente, podrán consultar el estado de sus pedidos y recibir notificaciones cuando estén en reparto.
+
+Requisitos principales:
+
+Gestión de usuarios con roles diferenciados (administrador, empleado, repartidor, cliente).
+
+Gestión de productos, clientes y pedidos.
+
+Generación automática de facturas y documentos en PDF/Excel.
+
+Sincronización de datos en tiempo real entre escritorio y Android mediante API REST o Firebase.
+
+Uso del GPS y mapas en la aplicación móvil para las entregas.
+
+Sistema de notificaciones para informar a clientes del estado de sus pedidos.
+
+2. Herramientas y entornos a utilizar
+
+(Se pueden indicar hasta 5)
+
+Android Studio – desarrollo de la aplicación móvil en Android.
+
+Visual Studio – desarrollo de la aplicación de escritorio en C#.
+
+MySQL / PostgreSQL – base de datos centralizada.
+
+GitHub / GitLab – control de versiones y repositorio del proyecto.
+
+Postman – pruebas de la API REST y validación de servicios.
+
+3. Lenguajes de programación
+
+(Se pueden indicar hasta 5)
+
+Kotlin – para la aplicación Android.
+
+C# – para la aplicación de escritorio.
+
+SQL – para la gestión de la base de datos.
+
+Java (Spring Boot) o C# (ASP.NET Core) – para el desarrollo de la API REST que conecta móvil y escritorio.
+
+JavaScript (opcional) – para futuras integraciones o panel web de administración.
+
+4. Entregas
+
+Memoria final del proyecto (obligatorio).
+
+Código fuente y aplicación funcional (obligatorio).
+
+Manual de usuario (opcional).
+
+Presentación en diapositivas para la defensa (opcional).
+
+Vídeo demostrativo del funcionamiento del sistema (opcional).
