@@ -69,21 +69,23 @@
             // 
             this.dgvAlbaranes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlbaranes.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvAlbaranes.Location = new System.Drawing.Point(0, 0);
+            this.dgvAlbaranes.Location = new System.Drawing.Point(20, 20);
             this.dgvAlbaranes.Name = "dgvAlbaranes";
-            this.dgvAlbaranes.Size = new System.Drawing.Size(800, 251);
+            this.dgvAlbaranes.Size = new System.Drawing.Size(844, 251);
             this.dgvAlbaranes.TabIndex = 26;
             // 
             // FormAlbaranes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 601);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.dgvAlbaranes);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormAlbaranes";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormAlbaranes";
             this.Load += new System.EventHandler(this.FormAlbaranes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbaranes)).EndInit();

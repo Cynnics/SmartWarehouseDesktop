@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
             this.btnProductos = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnUsuarios = new System.Windows.Forms.Button();
@@ -36,13 +37,20 @@
             this.btnAlbaranes = new System.Windows.Forms.Button();
             this.btnFacturas = new System.Windows.Forms.Button();
             this.btnRutas = new System.Windows.Forms.Button();
+            this.pnlTop = new System.Windows.Forms.Panel();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.pnlMenu = new System.Windows.Forms.Panel();
+            this.pnlContenido = new System.Windows.Forms.Panel();
+            this.pnlTop.SuspendLayout();
+            this.pnlMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnProductos
             // 
-            this.btnProductos.Location = new System.Drawing.Point(47, 156);
+            this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProductos.Location = new System.Drawing.Point(15, 10);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(149, 23);
+            this.btnProductos.Size = new System.Drawing.Size(170, 25);
             this.btnProductos.TabIndex = 0;
             this.btnProductos.Text = "Gestión de Productos";
             this.btnProductos.UseVisualStyleBackColor = true;
@@ -50,19 +58,20 @@
             // 
             // lblTitulo
             // 
-            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(181, 9);
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(413, 29);
+            this.lblTitulo.Size = new System.Drawing.Size(1084, 29);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "SmartWarehouse - Panel Principal";
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(47, 185);
+            this.btnUsuarios.Location = new System.Drawing.Point(15, 50);
             this.btnUsuarios.Name = "btnUsuarios";
-            this.btnUsuarios.Size = new System.Drawing.Size(149, 23);
+            this.btnUsuarios.Size = new System.Drawing.Size(170, 25);
             this.btnUsuarios.TabIndex = 2;
             this.btnUsuarios.Text = "Gestión de Usuarios";
             this.btnUsuarios.UseVisualStyleBackColor = true;
@@ -70,9 +79,9 @@
             // 
             // btnPedidos
             // 
-            this.btnPedidos.Location = new System.Drawing.Point(47, 214);
+            this.btnPedidos.Location = new System.Drawing.Point(15, 90);
             this.btnPedidos.Name = "btnPedidos";
-            this.btnPedidos.Size = new System.Drawing.Size(149, 23);
+            this.btnPedidos.Size = new System.Drawing.Size(170, 25);
             this.btnPedidos.TabIndex = 3;
             this.btnPedidos.Text = "Gestión de Pedidos";
             this.btnPedidos.UseVisualStyleBackColor = true;
@@ -80,9 +89,9 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(350, 394);
+            this.btnSalir.Location = new System.Drawing.Point(50, 550);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.Size = new System.Drawing.Size(100, 25);
             this.btnSalir.TabIndex = 4;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
@@ -90,9 +99,9 @@
             // 
             // btnAlbaranes
             // 
-            this.btnAlbaranes.Location = new System.Drawing.Point(614, 185);
+            this.btnAlbaranes.Location = new System.Drawing.Point(15, 170);
             this.btnAlbaranes.Name = "btnAlbaranes";
-            this.btnAlbaranes.Size = new System.Drawing.Size(129, 23);
+            this.btnAlbaranes.Size = new System.Drawing.Size(170, 25);
             this.btnAlbaranes.TabIndex = 5;
             this.btnAlbaranes.Text = "Albaranes";
             this.btnAlbaranes.UseVisualStyleBackColor = true;
@@ -100,9 +109,9 @@
             // 
             // btnFacturas
             // 
-            this.btnFacturas.Location = new System.Drawing.Point(614, 156);
+            this.btnFacturas.Location = new System.Drawing.Point(15, 130);
             this.btnFacturas.Name = "btnFacturas";
-            this.btnFacturas.Size = new System.Drawing.Size(129, 23);
+            this.btnFacturas.Size = new System.Drawing.Size(170, 25);
             this.btnFacturas.TabIndex = 6;
             this.btnFacturas.Text = "Facturas";
             this.btnFacturas.UseVisualStyleBackColor = true;
@@ -110,32 +119,76 @@
             // 
             // btnRutas
             // 
-            this.btnRutas.Location = new System.Drawing.Point(614, 214);
+            this.btnRutas.Location = new System.Drawing.Point(15, 210);
             this.btnRutas.Name = "btnRutas";
-            this.btnRutas.Size = new System.Drawing.Size(129, 23);
+            this.btnRutas.Size = new System.Drawing.Size(170, 25);
             this.btnRutas.TabIndex = 7;
             this.btnRutas.Text = "Rutas de Entrega";
             this.btnRutas.UseVisualStyleBackColor = true;
             this.btnRutas.Click += new System.EventHandler(this.btnRutas_Click);
             // 
+            // pnlTop
+            // 
+            this.pnlTop.Controls.Add(this.lblUsuario);
+            this.pnlTop.Controls.Add(this.lblTitulo);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1084, 60);
+            this.pnlTop.TabIndex = 8;
+            // 
+            // lblUsuario
+            // 
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuario.Location = new System.Drawing.Point(0, 29);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(0, 29);
+            this.lblUsuario.TabIndex = 2;
+            this.lblUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnlMenu
+            // 
+            this.pnlMenu.Controls.Add(this.btnProductos);
+            this.pnlMenu.Controls.Add(this.btnUsuarios);
+            this.pnlMenu.Controls.Add(this.btnSalir);
+            this.pnlMenu.Controls.Add(this.btnRutas);
+            this.pnlMenu.Controls.Add(this.btnPedidos);
+            this.pnlMenu.Controls.Add(this.btnAlbaranes);
+            this.pnlMenu.Controls.Add(this.btnFacturas);
+            this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlMenu.Location = new System.Drawing.Point(0, 60);
+            this.pnlMenu.Name = "pnlMenu";
+            this.pnlMenu.Size = new System.Drawing.Size(200, 601);
+            this.pnlMenu.TabIndex = 9;
+            // 
+            // pnlContenido
+            // 
+            this.pnlContenido.BackColor = System.Drawing.Color.White;
+            this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContenido.Location = new System.Drawing.Point(200, 60);
+            this.pnlContenido.Name = "pnlContenido";
+            this.pnlContenido.Size = new System.Drawing.Size(884, 601);
+            this.pnlContenido.TabIndex = 8;
+            // 
             // FormMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnRutas);
-            this.Controls.Add(this.btnFacturas);
-            this.Controls.Add(this.btnAlbaranes);
-            this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.btnPedidos);
-            this.Controls.Add(this.btnUsuarios);
-            this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.btnProductos);
+            this.ClientSize = new System.Drawing.Size(1084, 661);
+            this.Controls.Add(this.pnlContenido);
+            this.Controls.Add(this.pnlMenu);
+            this.Controls.Add(this.pnlTop);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMenu";
-            this.Text = "FormMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "SmartWarehouseDesktop";
             this.Load += new System.EventHandler(this.FormMenu_Load);
+            this.pnlTop.ResumeLayout(false);
+            this.pnlTop.PerformLayout();
+            this.pnlMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -149,5 +202,9 @@
         private System.Windows.Forms.Button btnAlbaranes;
         private System.Windows.Forms.Button btnFacturas;
         private System.Windows.Forms.Button btnRutas;
+        private System.Windows.Forms.Panel pnlTop;
+        private System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Panel pnlMenu;
+        private System.Windows.Forms.Panel pnlContenido;
     }
 }

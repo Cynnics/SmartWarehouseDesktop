@@ -40,9 +40,9 @@
             // 
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsuarios.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvUsuarios.Location = new System.Drawing.Point(0, 0);
+            this.dgvUsuarios.Location = new System.Drawing.Point(20, 20);
             this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(800, 251);
+            this.dgvUsuarios.Size = new System.Drawing.Size(844, 251);
             this.dgvUsuarios.TabIndex = 0;
             // 
             // btnEliminar
@@ -85,13 +85,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 601);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.dgvUsuarios);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormUsuarios";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormUsuarios";
             this.Load += new System.EventHandler(this.FormUsuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();

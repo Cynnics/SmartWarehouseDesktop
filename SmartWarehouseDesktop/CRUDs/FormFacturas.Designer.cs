@@ -69,21 +69,23 @@
             // 
             this.dgvFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFacturas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvFacturas.Location = new System.Drawing.Point(0, 0);
+            this.dgvFacturas.Location = new System.Drawing.Point(20, 20);
             this.dgvFacturas.Name = "dgvFacturas";
-            this.dgvFacturas.Size = new System.Drawing.Size(800, 251);
+            this.dgvFacturas.Size = new System.Drawing.Size(844, 251);
             this.dgvFacturas.TabIndex = 22;
             // 
             // FormFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 601);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.dgvFacturas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormFacturas";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormFacturas";
             this.Load += new System.EventHandler(this.FormFacturas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).EndInit();

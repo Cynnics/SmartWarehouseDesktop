@@ -1,12 +1,16 @@
 ﻿1. Descripción global del proyecto
 
-El presente proyecto consiste en el desarrollo de una plataforma multiplataforma para la gestión integral de pedidos y entregas en pequeñas y medianas empresas (pymes).
+El presente proyecto consiste en el desarrollo de una plataforma multiplataforma para la gestión integral de pedidos y
+entregas en pequeñas y medianas empresas (pymes).
 
 El sistema contará con dos aplicaciones principales:
 
-Aplicación de escritorio (para administradores y empleados), que permitirá gestionar clientes, productos y pedidos, así como generar facturas y albaranes, planificar rutas de entrega y obtener informes de ventas y estadísticas.
+Aplicación de escritorio (para administradores y empleados), que permitirá gestionar clientes, productos y pedidos, 
+así como generar facturas y albaranes, planificar rutas de entrega y obtener informes de ventas y estadísticas.
 
-Aplicación móvil Android (para repartidores y clientes), que permitirá a los repartidores consultar sus pedidos asignados, utilizar el GPS para visualizar rutas en Google Maps y actualizar el estado de las entregas en tiempo real. Los clientes, opcionalmente, podrán consultar el estado de sus pedidos y recibir notificaciones cuando estén en reparto.
+Aplicación móvil Android (para repartidores y clientes), que permitirá a los repartidores consultar sus pedidos asignados,
+utilizar el GPS para visualizar rutas en Google Maps y actualizar el estado de las entregas en tiempo real. Los clientes, 
+opcionalmente, podrán consultar el estado de sus pedidos y recibir notificaciones cuando estén en reparto.
 
 Requisitos principales:
 

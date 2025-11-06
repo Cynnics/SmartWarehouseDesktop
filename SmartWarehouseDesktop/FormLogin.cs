@@ -81,5 +81,30 @@ namespace SmartWarehouseDesktop
             menu.ShowDialog();
             this.Close();
         }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+           
+            this.BackColor = TemaApp.AzulOscuro;
+
+            // Labels
+            UIHelper.EstilizarLabel(lblTitulo, esTitulo: true);
+            UIHelper.EstilizarLabel(lblEmail);
+            UIHelper.EstilizarLabel(lblPassword);
+
+            // TextBox
+            UIHelper.EstilizarTextBox(txtEmail);
+            UIHelper.EstilizarTextBox(txtPassword);
+
+            // Logo
+            pictureBoxLogo.Image = Properties.Resources.logo;
+            pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            // Botón
+            UIHelper.EstilizarBoton(btnLogin);
+            UIHelper.EstiloHover(btnLogin);
+
+        }
+
+
     }
 }

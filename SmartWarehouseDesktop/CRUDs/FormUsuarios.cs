@@ -24,6 +24,7 @@ namespace SmartWarehouseDesktop.CRUDs
         private void FormUsuarios_Load(object sender, EventArgs e)
         {
             CargarUsuarios();
+            BackColor = TemaApp.AzulOscuro;
         }
 
         private void CargarUsuarios()

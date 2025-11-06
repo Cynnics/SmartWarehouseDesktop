@@ -25,6 +25,7 @@ namespace SmartWarehouseDesktop.CRUDs
         private void FormPedidos_Load(object sender, EventArgs e)
         {
             CargarPedidos();
+            BackColor = TemaApp.AzulIntermedio;
         }
 
         private void CargarPedidos()

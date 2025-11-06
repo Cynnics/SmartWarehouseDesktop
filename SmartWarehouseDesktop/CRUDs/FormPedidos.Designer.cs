@@ -76,22 +76,24 @@
             // 
             this.dgvPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPedidos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvPedidos.Location = new System.Drawing.Point(0, 0);
+            this.dgvPedidos.Location = new System.Drawing.Point(20, 20);
             this.dgvPedidos.Name = "dgvPedidos";
-            this.dgvPedidos.Size = new System.Drawing.Size(800, 251);
+            this.dgvPedidos.Size = new System.Drawing.Size(844, 251);
             this.dgvPedidos.TabIndex = 11;
             // 
             // FormPedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 601);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.dgvPedidos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormPedidos";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormPedidos";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidos)).EndInit();
             this.ResumeLayout(false);

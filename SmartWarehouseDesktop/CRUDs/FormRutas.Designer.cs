@@ -70,9 +70,9 @@
             // 
             this.dgvRutas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRutas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvRutas.Location = new System.Drawing.Point(0, 0);
+            this.dgvRutas.Location = new System.Drawing.Point(20, 20);
             this.dgvRutas.Name = "dgvRutas";
-            this.dgvRutas.Size = new System.Drawing.Size(800, 251);
+            this.dgvRutas.Size = new System.Drawing.Size(844, 251);
             this.dgvRutas.TabIndex = 26;
             // 
             // btnActualizar
@@ -89,13 +89,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 601);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.dgvRutas);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormRutas";
+            this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormRutas";
             this.Load += new System.EventHandler(this.FormRutas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRutas)).EndInit();
