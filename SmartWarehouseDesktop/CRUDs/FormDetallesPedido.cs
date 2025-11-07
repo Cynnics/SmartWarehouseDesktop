@@ -21,9 +21,30 @@ namespace SmartWarehouseDesktop.CRUDs
             InitializeComponent();
         }
 
+        private int idPedidoSeleccionado = 0;
+
+        public FormDetallesPedido(int idPedido)
+        {
+            InitializeComponent();
+            idPedidoSeleccionado = idPedido;
+        }
+
         private void FormDetallesPedido_Load(object sender, EventArgs e)
         {
-            CargarDetalles();
+            /*if (idPedidoSeleccionado > 0)
+                CargarDetallesPorPedido(idPedidoSeleccionado);
+            else
+                CargarDetalles();*/
+            dgvDetalles.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEditar);
+            UIHelper.EstiloHover(btnEditar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
 
         private void CargarDetalles()
@@ -32,6 +53,14 @@ namespace SmartWarehouseDesktop.CRUDs
             List<DetallePedido> detalles = detalleDAO.ObtenerDetalles();
             dgvDetalles.DataSource = detalles;
         }
+
+        private void CargarDetallesPorPedido(int idPedido)
+        {
+            dgvDetalles.DataSource = null;
+            List<DetallePedido> detalles = detalleDAO.ObtenerDetallesPorPedido(idPedido);
+            dgvDetalles.DataSource = detalles;
+        }
+
 
         private void btnCargar_Click(object sender, EventArgs e)
         {

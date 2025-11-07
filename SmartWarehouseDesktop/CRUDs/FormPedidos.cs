@@ -24,8 +24,20 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormPedidos_Load(object sender, EventArgs e)
         {
-            CargarPedidos();
+            //CargarPedidos();
             BackColor = TemaApp.AzulIntermedio;
+            dgvPedidos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEditar);
+            UIHelper.EstiloHover(btnEditar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
+            UIHelper.EstilizarBoton(btnForm);
+            UIHelper.EstiloHover(btnForm);
         }
 
         private void CargarPedidos()
@@ -106,6 +118,27 @@ namespace SmartWarehouseDesktop.CRUDs
                     CargarPedidos();
                 }
             }
+        }
+
+        private void btnForm_Click(object sender, EventArgs e)
+        {
+            /*
+            if (dgvPedidos.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona un pedido para ver su detalle.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int idPedido = Convert.ToInt32(dgvPedidos.CurrentRow.Cells["IdPedido"].Value);
+
+            // Abre modal con el detalle del pedido
+            using (FormDetallesPedido formDetalle = new FormDetallesPedido(idPedido))
+            {
+                formDetalle.StartPosition = FormStartPosition.CenterParent;
+                formDetalle.ShowDialog(this);
+            }*/
+            FormDetallesPedido formDetalles = new FormDetallesPedido();
+            formDetalles.ShowDialog(); 
         }
     }
 }

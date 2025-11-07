@@ -3,9 +3,6 @@ using SmartWarehouseDesktop.Conexion;
 using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartWarehouseDesktop.DAOs
 {
@@ -51,6 +48,46 @@ namespace SmartWarehouseDesktop.DAOs
             catch (Exception ex)
             {
                 Console.WriteLine("Error al obtener detalles: " + ex.Message);
+            }
+
+            return lista;
+        }
+
+        // ✅ Obtener detalles por pedido específico
+        public List<DetallePedido> ObtenerDetallesPorPedido(int idPedido)
+        {
+            List<DetallePedido> lista = new List<DetallePedido>();
+
+            try
+            {
+                var conn = db.GetConnection();
+                db.OpenConnection();
+
+                string query = "SELECT * FROM DetallePedido WHERE idPedido = @idPedido";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idPedido", idPedido);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    DetallePedido d = new DetallePedido
+                    {
+                        IdDetalle = reader.GetInt32("idDetalle"),
+                        IdPedido = reader.GetInt32("idPedido"),
+                        IdProducto = reader.GetInt32("idProducto"),
+                        Cantidad = reader.GetInt32("cantidad"),
+                        Subtotal = reader.GetDecimal("subtotal")
+                    };
+                    lista.Add(d);
+                }
+
+                reader.Close();
+                db.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener detalles por pedido: " + ex.Message);
             }
 
             return lista;

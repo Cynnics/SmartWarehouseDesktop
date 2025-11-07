@@ -23,7 +23,15 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormAlbaranes_Load(object sender, EventArgs e)
         {
-            CargarAlbaranes();
+            //CargarAlbaranes();
+            dgvAlbaranes.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
 
         private void CargarAlbaranes()

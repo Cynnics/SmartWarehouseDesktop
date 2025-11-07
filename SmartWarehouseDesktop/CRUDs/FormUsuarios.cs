@@ -23,8 +23,18 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormUsuarios_Load(object sender, EventArgs e)
         {
-            CargarUsuarios();
-            BackColor = TemaApp.AzulOscuro;
+            //CargarUsuarios();
+            BackColor = TemaApp.AzulIntermedio;
+            dgvUsuarios.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEditar);
+            UIHelper.EstiloHover(btnEditar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
 
         private void CargarUsuarios()

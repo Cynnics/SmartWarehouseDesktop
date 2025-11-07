@@ -22,7 +22,15 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormFacturas_Load(object sender, EventArgs e)
         {
-            CargarFacturas();
+            //CargarFacturas();
+            dgvFacturas.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnGenerar);
+            UIHelper.EstiloHover(btnGenerar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
         private void CargarFacturas()
         {

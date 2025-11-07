@@ -23,7 +23,19 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormRutas_Load(object sender, EventArgs e)
         {
-            CargarRutas();
+            //CargarRutas();
+            dgvRutas.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnActualizar);
+            UIHelper.EstiloHover(btnActualizar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
+            UIHelper.EstilizarBoton(btnForm);
+            UIHelper.EstiloHover(btnForm);
         }
 
         private void CargarRutas()
@@ -103,6 +115,26 @@ namespace SmartWarehouseDesktop.CRUDs
                     CargarRutas();
                 }
             }
+        }
+
+        private void btnForm_Click(object sender, EventArgs e)
+        {
+            /*
+            if (dgvRutas.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona una ruta para ver su ubicación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int idRuta = Convert.ToInt32(dgvRutas.CurrentRow.Cells["IdRuta"].Value);
+
+            using (FormUbicaciones formUbic = new FormUbicaciones(idRuta))
+            {
+                formUbic.StartPosition = FormStartPosition.CenterParent;
+                formUbic.ShowDialog(this);
+            }*/
+            FormUbicaciones formUbicaciones = new FormUbicaciones();
+            formUbicaciones.ShowDialog();
         }
     }
 }

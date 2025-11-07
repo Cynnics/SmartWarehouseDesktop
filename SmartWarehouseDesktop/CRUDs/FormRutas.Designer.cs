@@ -1,4 +1,6 @@
-﻿namespace SmartWarehouseDesktop.CRUDs
+﻿using System.Windows.Forms;
+
+namespace SmartWarehouseDesktop.CRUDs
 {
     partial class FormRutas
     {
@@ -28,19 +30,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnCargar = new System.Windows.Forms.Button();
             this.dgvRutas = new System.Windows.Forms.DataGridView();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.pnlTop = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.pnlContent = new System.Windows.Forms.Panel();
+            this.pnlBottom = new System.Windows.Forms.Panel();
+            this.btnForm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRutas)).BeginInit();
+            this.pnlTop.SuspendLayout();
+            this.pnlContent.SuspendLayout();
+            this.pnlBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(324, 402);
+            this.btnEliminar.Location = new System.Drawing.Point(437, 30);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(150, 40);
             this.btnEliminar.TabIndex = 29;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
@@ -48,9 +59,9 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(436, 326);
+            this.btnAgregar.Location = new System.Drawing.Point(97, 30);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(150, 40);
             this.btnAgregar.TabIndex = 28;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -58,9 +69,9 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(206, 326);
+            this.btnCargar.Location = new System.Drawing.Point(267, 30);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(75, 23);
+            this.btnCargar.Size = new System.Drawing.Size(150, 40);
             this.btnCargar.TabIndex = 27;
             this.btnCargar.Text = "Cargar";
             this.btnCargar.UseVisualStyleBackColor = true;
@@ -68,39 +79,105 @@
             // 
             // dgvRutas
             // 
+            this.dgvRutas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRutas.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(39)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRutas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRutas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRutas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvRutas.Location = new System.Drawing.Point(20, 20);
+            this.dgvRutas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRutas.Location = new System.Drawing.Point(0, 0);
             this.dgvRutas.Name = "dgvRutas";
-            this.dgvRutas.Size = new System.Drawing.Size(844, 251);
+            this.dgvRutas.Size = new System.Drawing.Size(844, 481);
             this.dgvRutas.TabIndex = 26;
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(535, 386);
+            this.btnActualizar.Location = new System.Drawing.Point(607, 30);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizar.Size = new System.Drawing.Size(150, 40);
             this.btnActualizar.TabIndex = 30;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
+            // pnlTop
+            // 
+            this.pnlTop.Controls.Add(this.lblTitulo);
+            this.pnlTop.Controls.Add(this.btnCargar);
+            this.pnlTop.Controls.Add(this.btnAgregar);
+            this.pnlTop.Controls.Add(this.btnActualizar);
+            this.pnlTop.Controls.Add(this.btnEliminar);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(20, 20);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(844, 80);
+            this.pnlTop.TabIndex = 31;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblTitulo.Size = new System.Drawing.Size(844, 25);
+            this.lblTitulo.TabIndex = 31;
+            this.lblTitulo.Text = "Gestor de Rutas";
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // pnlContent
+            // 
+            this.pnlContent.Controls.Add(this.dgvRutas);
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(20, 100);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Size = new System.Drawing.Size(844, 481);
+            this.pnlContent.TabIndex = 32;
+            // 
+            // pnlBottom
+            // 
+            this.pnlBottom.Controls.Add(this.btnForm);
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBottom.Location = new System.Drawing.Point(20, 511);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(844, 70);
+            this.pnlBottom.TabIndex = 32;
+            // 
+            // btnForm
+            // 
+            this.btnForm.Location = new System.Drawing.Point(680, 15);
+            this.btnForm.Name = "btnForm";
+            this.btnForm.Size = new System.Drawing.Size(150, 40);
+            this.btnForm.TabIndex = 18;
+            this.btnForm.Text = "Ver Ruta";
+            this.btnForm.UseVisualStyleBackColor = true;
+            this.btnForm.Click += new System.EventHandler(this.btnForm_Click);
+            // 
             // FormRutas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(128)))), ((int)(((byte)(148)))));
             this.ClientSize = new System.Drawing.Size(884, 601);
-            this.Controls.Add(this.btnActualizar);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnAgregar);
-            this.Controls.Add(this.btnCargar);
-            this.Controls.Add(this.dgvRutas);
+            this.Controls.Add(this.pnlBottom);
+            this.Controls.Add(this.pnlContent);
+            this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormRutas";
             this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormRutas";
             this.Load += new System.EventHandler(this.FormRutas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRutas)).EndInit();
+            this.pnlTop.ResumeLayout(false);
+            this.pnlContent.ResumeLayout(false);
+            this.pnlBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -112,5 +189,10 @@
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.DataGridView dgvRutas;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Panel pnlTop;
+        private System.Windows.Forms.Panel pnlContent;
+        private System.Windows.Forms.Label lblTitulo;
+        private Panel pnlBottom;
+        private Button btnForm;
     }
 }

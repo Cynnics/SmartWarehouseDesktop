@@ -22,7 +22,17 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormProductos_Load(object sender, EventArgs e)
         {
-            CargarProductos();
+            //CargarProductos();
+            dgvProductos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEditar);
+            UIHelper.EstiloHover(btnEditar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
 
         // Método para llenar el DataGridView

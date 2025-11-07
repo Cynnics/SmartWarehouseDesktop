@@ -15,21 +15,47 @@ namespace SmartWarehouseDesktop.CRUDs
     public partial class FormUbicaciones: Form
     {
         private UbicacionRepartidorDAO ubicacionDAO = new UbicacionRepartidorDAO();
+        private int idRuta;  // 🔹 Guardamos el id de la ruta
 
         public FormUbicaciones()
         {
             InitializeComponent();
         }
 
+        public FormUbicaciones(int idRuta)
+        {
+            InitializeComponent();
+            this.idRuta = idRuta;
+        }
+
         private void FormUbicaciones_Load(object sender, EventArgs e)
         {
-            CargarUbicaciones();
+            /*
+            if (idRuta > 0)
+                CargarUbicacionesPorRuta(idRuta);
+            else
+                CargarUbicaciones();*/
+
+            dgvUbicaciones.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
+            lblTitulo.Font = TemaApp.FuenteTitulo;
+            UIHelper.EstilizarBoton(btnAgregar);
+            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnCargar);
+            UIHelper.EstiloHover(btnCargar);
+            UIHelper.EstilizarBoton(btnEliminar);
+            UIHelper.EstiloHover(btnEliminar);
         }
 
         private void CargarUbicaciones()
         {
             dgvUbicaciones.DataSource = null;
             List<UbicacionRepartidor> ubicaciones = ubicacionDAO.ObtenerUbicaciones();
+            dgvUbicaciones.DataSource = ubicaciones;
+        }
+        private void CargarUbicacionesPorRuta(int idRuta)
+        {
+            dgvUbicaciones.DataSource = null;
+            List<UbicacionRepartidor> ubicaciones = ubicacionDAO.ObtenerUbicacionesPorRuta(idRuta);
             dgvUbicaciones.DataSource = ubicaciones;
         }
 

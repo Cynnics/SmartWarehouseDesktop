@@ -104,5 +104,44 @@ namespace SmartWarehouseDesktop.DAOs
                 return false;
             }
         }
+        public List<UbicacionRepartidor> ObtenerUbicacionesPorRuta(int idRuta)
+        {
+            List<UbicacionRepartidor> lista = new List<UbicacionRepartidor>();
+
+            try
+            {
+                var conn = db.GetConnection();
+                db.OpenConnection();
+
+                string query = "SELECT * FROM ubicacionesrepartidor WHERE idRuta = @idRuta";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idRuta", idRuta);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    UbicacionRepartidor u = new UbicacionRepartidor
+                    {
+                        IdUbicacion = reader.GetInt32("idUbicacion"),
+                        IdRepartidor = reader.GetInt32("idRepartidor"),
+                        Latitud = reader.GetDecimal("latitud"),
+                        Longitud = reader.GetDecimal("longitud"),
+                        FechaHora = reader.GetDateTime("fechaHora")
+                    };
+                    lista.Add(u);
+                }
+
+                reader.Close();
+                db.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener ubicaciones por ruta: " + ex.Message);
+            }
+
+            return lista;
+        }
+
     }
 }
