@@ -23,7 +23,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormAlbaranes_Load(object sender, EventArgs e)
         {
-            //CargarAlbaranes();
+            CargarAlbaranes();
             dgvAlbaranes.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);

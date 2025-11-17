@@ -24,7 +24,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormPedidos_Load(object sender, EventArgs e)
         {
-            //CargarPedidos();
+            CargarPedidos();
             BackColor = TemaApp.AzulIntermedio;
             dgvPedidos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;

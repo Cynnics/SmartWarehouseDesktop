@@ -23,7 +23,7 @@ namespace SmartWarehouseDesktop
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            /*
+            
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
 
@@ -74,12 +74,8 @@ namespace SmartWarehouseDesktop
             {
                 MessageBox.Show("Error al conectar con la base de datos:\n" + ex.Message,
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
 
-            this.Hide(); // Oculta el login
-            FormMenu menu = new FormMenu();
-            menu.ShowDialog();
-            this.Close();
         }
 
         private void FormLogin_Load(object sender, EventArgs e)

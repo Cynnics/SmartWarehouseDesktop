@@ -31,10 +31,10 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormDetallesPedido_Load(object sender, EventArgs e)
         {
-            /*if (idPedidoSeleccionado > 0)
+            if (idPedidoSeleccionado > 0)
                 CargarDetallesPorPedido(idPedidoSeleccionado);
             else
-                CargarDetalles();*/
+                CargarDetalles();
             dgvDetalles.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);

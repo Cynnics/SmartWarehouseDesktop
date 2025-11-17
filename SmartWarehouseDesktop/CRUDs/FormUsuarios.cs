@@ -23,7 +23,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormUsuarios_Load(object sender, EventArgs e)
         {
-            //CargarUsuarios();
+            CargarUsuarios();
             BackColor = TemaApp.AzulIntermedio;
             dgvUsuarios.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;

@@ -30,11 +30,11 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormUbicaciones_Load(object sender, EventArgs e)
         {
-            /*
+            
             if (idRuta > 0)
                 CargarUbicacionesPorRuta(idRuta);
             else
-                CargarUbicaciones();*/
+                CargarUbicaciones();
 
             dgvUbicaciones.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;

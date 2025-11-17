@@ -22,7 +22,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormProductos_Load(object sender, EventArgs e)
         {
-            //CargarProductos();
+            CargarProductos();
             dgvProductos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);

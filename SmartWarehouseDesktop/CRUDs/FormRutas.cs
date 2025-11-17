@@ -23,7 +23,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void FormRutas_Load(object sender, EventArgs e)
         {
-            //CargarRutas();
+            CargarRutas();
             dgvRutas.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);
