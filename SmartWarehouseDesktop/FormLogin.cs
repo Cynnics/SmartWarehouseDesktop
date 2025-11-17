@@ -1,13 +1,8 @@
-﻿using MySql.Data.MySqlClient;
+﻿using SmartWarehouseDesktop.ApiModels;
 using SmartWarehouseDesktop.Conexion;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop
@@ -21,9 +16,8 @@ namespace SmartWarehouseDesktop
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
-            
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text.Trim();
 
@@ -35,48 +29,55 @@ namespace SmartWarehouseDesktop
 
             try
             {
-                using (var conn = db.GetConnection())
+                var loginData = new LoginRequest
                 {
-                    string query = @"SELECT * FROM Usuario 
-                                     WHERE email=@correo AND password=@pass 
-                                     AND (rol='ADMIN' OR rol='EMPLEADO')";
+                    Email = email,
+                    Password = password
+                };
 
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@correo", email);
-                    cmd.Parameters.AddWithValue("@pass", password);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(loginData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    conn.Open();
-                    using (var reader = cmd.ExecuteReader())
+                using (var client = new HttpClient())
+                {
+                    string url = "http://localhost:5294/api/Auth/login";
+
+                    var response = await client.PostAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
                     {
-                        if (reader.Read())
-                        {
-                            string nombre = reader.GetString("nombre");
-                            string rol = reader.GetString("rol");
+                        string jsonResp = await response.Content.ReadAsStringAsync();
+                        var result = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResponse>(jsonResp);
 
-                            MessageBox.Show($"Bienvenido {nombre} ({rol})",
-                                            "Acceso concedido",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
+                        // 🔥 Guardamos la sesión 🔥
+                        Session.Token = result.Token;
+                        Session.Usuario = result.Usuario;
 
-                            this.Hide(); // Oculta el login
-                            FormMenu menu = new FormMenu();
-                            menu.ShowDialog();
-                            this.Close();
-                        }
-                        else
-                        {
-                            lblMensaje.Text = "Credenciales incorrectas o acceso no permitido.";
-                        }
+                        MessageBox.Show(
+                            $"Bienvenido {result.Usuario.Nombre} ({result.Usuario.Rol})",
+                            "Acceso concedido",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+
+                        this.Hide();
+                        FormMenu menu = new FormMenu();
+                        menu.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Credenciales incorrectas.";
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al conectar con la base de datos:\n" + ex.Message,
+                MessageBox.Show("Error al conectar con la API:\n" + ex.Message,
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
