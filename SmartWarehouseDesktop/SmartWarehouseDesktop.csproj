@@ -99,12 +99,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\ApiConfig.cs" />
     <Compile Include="ApiModels\ApiErrorResponse.cs" />
     <Compile Include="ApiModels\ApiClient.cs" />
     <Compile Include="ApiModels\LoginRequest.cs" />
     <Compile Include="ApiModels\LoginResponse.cs" />
+    <Compile Include="ApiModels\ProductApiModel.cs" />
     <Compile Include="ApiModels\Session.cs" />
     <Compile Include="ApiModels\UsuarioModel.cs" />
+    <Compile Include="ApiServices\ProductService.cs" />
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="CRUDs\FormAlbaranes.cs">
       <SubType>Form</SubType>

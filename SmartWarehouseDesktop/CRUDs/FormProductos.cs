@@ -1,4 +1,6 @@
-﻿using SmartWarehouseDesktop.Entity;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +15,7 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormProductos: Form
     {
-        private ProductoDAO productoDAO = new ProductoDAO();
+        private readonly ProductService _service = new ProductService();
 
         public FormProductos()
         {
@@ -36,11 +38,17 @@ namespace SmartWarehouseDesktop.CRUDs
         }
 
         // Método para llenar el DataGridView
-        private void CargarProductos()
+        private async void CargarProductos()
         {
-            dgvProductos.DataSource = null;
-            List<Producto> productos = productoDAO.ObtenerProductos();
-            dgvProductos.DataSource = productos;
+            try
+            {
+                var productos = await _service.GetAll();
+                dgvProductos.DataSource = productos;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar productos:\n" + ex.Message);
+            }
         }
         // Botón: Recargar lista
         private void btnCargar_Click(object sender, EventArgs e)
@@ -48,77 +56,38 @@ namespace SmartWarehouseDesktop.CRUDs
             CargarProductos();
         }
 
-        // Botón: Agregar producto
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Producto nuevo = new Producto
-                {
-                    Nombre = Prompt.ShowDialog("Nombre del producto:", "Agregar"),
-                    Descripcion = Prompt.ShowDialog("Descripción:", "Agregar"),
-                    Precio = Convert.ToDecimal(Prompt.ShowDialog("Precio:", "Agregar")),
-                    Stock = Convert.ToInt32(Prompt.ShowDialog("Stock:", "Agregar")),
-                    Categoria = Prompt.ShowDialog("Categoría:", "Agregar")
-                };
-
-                if (productoDAO.InsertarProducto(nuevo))
-                {
-                    MessageBox.Show("Producto agregado correctamente.");
-                    CargarProductos();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al agregar producto. Revisa los datos.");
-            }
-        }
-
-        // Botón: Editar producto
-        private void btnEditar_Click(object sender, EventArgs e)
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow == null) return;
 
-            Producto p = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+            var prod = (ProductApiModel)dgvProductos.CurrentRow.DataBoundItem;
 
-            try
+            if (MessageBox.Show($"¿Eliminar '{prod.Nombre}'?",
+                "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                p.Nombre = Prompt.ShowDialog("Nombre:", "Editar", p.Nombre);
-                p.Descripcion = Prompt.ShowDialog("Descripción:", "Editar", p.Descripcion);
-                p.Precio = Convert.ToDecimal(Prompt.ShowDialog("Precio:", "Editar", p.Precio.ToString()));
-                p.Stock = Convert.ToInt32(Prompt.ShowDialog("Stock:", "Editar", p.Stock.ToString()));
-                p.Categoria = Prompt.ShowDialog("Categoría:", "Editar", p.Categoria);
-
-                if (productoDAO.ActualizarProducto(p))
-                {
-                    MessageBox.Show("Producto actualizado correctamente.");
-                    CargarProductos();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al editar producto.");
+                await _service.Delete(prod.IdProducto);
+                await CargarProductos();
             }
         }
 
-        // Botón: Eliminar producto
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private async void btnAgregar_Click(object sender, EventArgs e)
+        {
+            var form = new FormProductoEditar();
+            if (form.ShowDialog() == DialogResult.OK)
+                await CargarProductos();
+        }
+
+        private async void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow == null) return;
 
-            Producto p = (Producto)dgvProductos.CurrentRow.DataBoundItem;
+            var prod = (ProductApiModel)dgvProductos.CurrentRow.DataBoundItem;
 
-            var confirm = MessageBox.Show($"¿Eliminar '{p.Nombre}'?", "Confirmar", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                if (productoDAO.EliminarProducto(p.IdProducto))
-                {
-                    MessageBox.Show("Producto eliminado.");
-                    CargarProductos();
-                }
-            }
+            var form = new FormProductoEditar(prod);
+            if (form.ShowDialog() == DialogResult.OK)
+                await CargarProductos();
         }
 
-       
+
     }
 }
