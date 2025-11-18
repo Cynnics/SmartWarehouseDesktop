@@ -48,10 +48,10 @@
             // btnProductos
             // 
             this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProductos.Location = new System.Drawing.Point(15, 10);
+            this.btnProductos.Location = new System.Drawing.Point(15, 50);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(170, 25);
-            this.btnProductos.TabIndex = 0;
+            this.btnProductos.TabIndex = 1;
             this.btnProductos.Text = "Gestión de Productos";
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
@@ -69,10 +69,10 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(15, 50);
+            this.btnUsuarios.Location = new System.Drawing.Point(15, 10);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(170, 25);
-            this.btnUsuarios.TabIndex = 2;
+            this.btnUsuarios.TabIndex = 0;
             this.btnUsuarios.Text = "Gestión de Usuarios";
             this.btnUsuarios.UseVisualStyleBackColor = true;
             this.btnUsuarios.Click += new System.EventHandler(this.btnUsuarios_Click);
@@ -82,7 +82,7 @@
             this.btnPedidos.Location = new System.Drawing.Point(15, 90);
             this.btnPedidos.Name = "btnPedidos";
             this.btnPedidos.Size = new System.Drawing.Size(170, 25);
-            this.btnPedidos.TabIndex = 3;
+            this.btnPedidos.TabIndex = 2;
             this.btnPedidos.Text = "Gestión de Pedidos";
             this.btnPedidos.UseVisualStyleBackColor = true;
             this.btnPedidos.Click += new System.EventHandler(this.btnPedidos_Click);
@@ -92,7 +92,7 @@
             this.btnSalir.Location = new System.Drawing.Point(50, 550);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(100, 25);
-            this.btnSalir.TabIndex = 4;
+            this.btnSalir.TabIndex = 6;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -102,7 +102,7 @@
             this.btnAlbaranes.Location = new System.Drawing.Point(15, 170);
             this.btnAlbaranes.Name = "btnAlbaranes";
             this.btnAlbaranes.Size = new System.Drawing.Size(170, 25);
-            this.btnAlbaranes.TabIndex = 5;
+            this.btnAlbaranes.TabIndex = 4;
             this.btnAlbaranes.Text = "Albaranes";
             this.btnAlbaranes.UseVisualStyleBackColor = true;
             this.btnAlbaranes.Click += new System.EventHandler(this.btnAlbaranes_Click);
@@ -112,7 +112,7 @@
             this.btnFacturas.Location = new System.Drawing.Point(15, 130);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(170, 25);
-            this.btnFacturas.TabIndex = 6;
+            this.btnFacturas.TabIndex = 3;
             this.btnFacturas.Text = "Facturas";
             this.btnFacturas.UseVisualStyleBackColor = true;
             this.btnFacturas.Click += new System.EventHandler(this.btnFacturas_Click);
@@ -122,7 +122,7 @@
             this.btnRutas.Location = new System.Drawing.Point(15, 210);
             this.btnRutas.Name = "btnRutas";
             this.btnRutas.Size = new System.Drawing.Size(170, 25);
-            this.btnRutas.TabIndex = 7;
+            this.btnRutas.TabIndex = 5;
             this.btnRutas.Text = "Rutas de Entrega";
             this.btnRutas.UseVisualStyleBackColor = true;
             this.btnRutas.Click += new System.EventHandler(this.btnRutas_Click);
@@ -184,6 +184,7 @@
             this.Name = "FormMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SmartWarehouseDesktop";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMenu_FormClosed);
             this.Load += new System.EventHandler(this.FormMenu_Load);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();

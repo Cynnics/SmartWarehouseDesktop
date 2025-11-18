@@ -1,12 +1,6 @@
-﻿using SmartWarehouseDesktop.CRUDs;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.CRUDs;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop
@@ -16,12 +10,22 @@ namespace SmartWarehouseDesktop
         public FormMenu()
         {
             InitializeComponent();
+            if (Session.Token == null)
+            {
+                MessageBox.Show("Debes iniciar sesión.");
+                this.Close();
+                return;
+            }
+
+            
+            ConfigurarPermisos();
         }
 
         private void FormMenu_Load(object sender, EventArgs e)
         {
             pnlTop.BackColor = TemaApp.AzulOscuro;
             pnlMenu.BackColor = TemaApp.AzulOscuro;
+            lblUsuario.Text = $"{Session.UsuarioActual.Nombre} ({Session.UsuarioActual.Rol})"; 
             UIHelper.EstilizarLabel(lblTitulo, esTitulo : true);
             UIHelper.EstilizarLabel(lblUsuario);
             UIHelper.EstilizarBoton(btnProductos);
@@ -38,6 +42,8 @@ namespace SmartWarehouseDesktop
             UIHelper.EstiloHover(btnAlbaranes);
             UIHelper.EstiloHover(btnRutas);
             UIHelper.EstiloHover(btnSalir);
+            ConfigurarPermisos();
+
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
@@ -72,12 +78,16 @@ namespace SmartWarehouseDesktop
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Seguro que deseas salir?", "Confirmar salida",
+            if (MessageBox.Show("¿Cerrar sesión?", "Confirmación",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Application.Exit();
+                Session.Clear();
+                this.Close();  // ← esto devuelve al login sin cerrar la app
             }
         }
+
+
+
 
         private void AbrirFormulario(Form formHijo)
         {
@@ -89,5 +99,19 @@ namespace SmartWarehouseDesktop
             formHijo.Show();
         }
 
+        private void ConfigurarPermisos()
+        {
+            var rol = Session.UsuarioActual.Rol;
+
+            if (rol == "empleado")
+            {
+                btnUsuarios.Enabled = false;
+            }
+        }
+
+        private void FormMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

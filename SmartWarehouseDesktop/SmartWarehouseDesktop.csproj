@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiModels\ApiErrorResponse.cs" />
+    <Compile Include="ApiModels\ApiClient.cs" />
     <Compile Include="ApiModels\LoginRequest.cs" />
     <Compile Include="ApiModels\LoginResponse.cs" />
     <Compile Include="ApiModels\Session.cs" />

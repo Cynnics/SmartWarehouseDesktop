@@ -51,7 +51,7 @@ namespace SmartWarehouseDesktop
 
                         // 🔥 Guardamos la sesión 🔥
                         Session.Token = result.Token;
-                        Session.Usuario = result.Usuario;
+                        Session.UsuarioActual = result.Usuario;
 
                         MessageBox.Show(
                             $"Bienvenido {result.Usuario.Nombre} ({result.Usuario.Rol})",
@@ -60,10 +60,13 @@ namespace SmartWarehouseDesktop
                             MessageBoxIcon.Information
                         );
 
+                        txtEmail.Clear();
+                        txtPassword.Clear();
+
                         this.Hide();
                         FormMenu menu = new FormMenu();
-                        menu.ShowDialog();
-                        this.Close();
+                        menu.FormClosed += (s, args) => this.Show();   // ← cuando cierre menú, vuelve login
+                        menu.Show();
                     }
                     else
                     {
@@ -103,5 +106,10 @@ namespace SmartWarehouseDesktop
         }
 
 
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) 
+                btnLogin_Click(sender, e);
+        }
     }
 }
