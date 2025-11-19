@@ -99,13 +99,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiModels\ApiConfig.cs" />
-    <Compile Include="ApiModels\ApiErrorResponse.cs" />
-    <Compile Include="ApiModels\ApiClient.cs" />
-    <Compile Include="ApiModels\LoginRequest.cs" />
-    <Compile Include="ApiModels\LoginResponse.cs" />
+    <Compile Include="Api\ApiConfig.cs" />
+    <Compile Include="Api\ApiErrorResponse.cs" />
+    <Compile Include="Api\ApiClient.cs" />
+    <Compile Include="Api\LoginRequest.cs" />
+    <Compile Include="Api\LoginResponse.cs" />
     <Compile Include="ApiModels\ProductApiModel.cs" />
-    <Compile Include="ApiModels\Session.cs" />
+    <Compile Include="Api\Session.cs" />
     <Compile Include="ApiModels\UsuarioModel.cs" />
     <Compile Include="ApiServices\ProductService.cs" />
     <Compile Include="Connection\DBConnection.cs" />
@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="CRUDs\FormPedidos.Designer.cs">
       <DependentUpon>FormPedidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormProductoEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormProductoEditar.Designer.cs">
+      <DependentUpon>FormProductoEditar.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\FormProductos.cs">
       <SubType>Form</SubType>
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormProductoEditar.resx">
+      <DependentUpon>FormProductoEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormProductos.resx">
       <DependentUpon>FormProductos.cs</DependentUpon>

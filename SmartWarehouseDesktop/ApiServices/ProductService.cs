@@ -36,7 +36,13 @@ namespace SmartWarehouseDesktop.ApiServices
             string json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _http.PostAsync("api/productos", content);
+            var response = await _http.PostAsync("api/Productos", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                // muestra el error en un MessageBox o log
+                System.Diagnostics.Debug.WriteLine("Create error: " + error);
+            }
             return response.IsSuccessStatusCode;
         }
 
@@ -45,13 +51,13 @@ namespace SmartWarehouseDesktop.ApiServices
             string json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _http.PutAsync($"api/productos/{model.IdProducto}", content);
+            var response = await _http.PutAsync($"api/Productos/{model.IdProducto}", content);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> Delete(int id)
         {
-            var response = await _http.DeleteAsync($"api/productos/{id}");
+            var response = await _http.DeleteAsync($"api/Productos/{id}");
             return response.IsSuccessStatusCode;
         }
     }
