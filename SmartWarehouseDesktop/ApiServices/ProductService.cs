@@ -18,18 +18,30 @@ namespace SmartWarehouseDesktop.ApiServices
             _http = new HttpClient();
             _http.BaseAddress = new Uri(ApiConfig.BaseUrl);
 
-            if (Session.Token != null)
+            // SIEMPRE actualizar el token antes de cada operación
+            if (!string.IsNullOrEmpty(Session.Token))
+            {
                 _http.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", Session.Token);
+            }
+         
         }
 
         public async Task<List<ProductApiModel>> GetAll()
         {
-            var response = await _http.GetAsync("api/productos");
+            var response = await _http.GetAsync("api/Productos");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string error = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine("GET error: " + error);
+                return null;
+            }
 
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<ProductApiModel>>(json);
         }
+
 
         public async Task<bool> Create(ProductApiModel model)
         {
@@ -60,5 +72,20 @@ namespace SmartWarehouseDesktop.ApiServices
             var response = await _http.DeleteAsync($"api/Productos/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> PatchProducto(int id, object cambios)
+        {
+            var json = JsonConvert.SerializeObject(cambios);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"),
+                                                 $"api/Productos/{id}");
+            request.Content = content;
+
+            var response = await _http.SendAsync(request);
+
+            return response.IsSuccessStatusCode;
+        }
+
     }
 }

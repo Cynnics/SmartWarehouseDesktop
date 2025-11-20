@@ -1,6 +1,8 @@
 ﻿using SmartWarehouseDesktop.ApiModels;
 using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.Entity;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop.CRUDs
@@ -14,6 +16,17 @@ namespace SmartWarehouseDesktop.CRUDs
         {
             InitializeComponent();
             this.producto = producto;
+            UIHelper.EstilizarFormulario(this);
+            UIHelper.EstilizarLabel(lblNombre);
+            UIHelper.EstilizarLabel(lblDescripcion);
+            UIHelper.EstilizarLabel(lblPrecio);
+            UIHelper.EstilizarLabel(lblStock);
+            UIHelper.EstilizarLabel(lblCategoria);
+            UIHelper.EstilizarBoton(btnGuardar);
+            UIHelper.EstilizarBoton(btnCancelar);
+            UIHelper.EstiloHover(btnGuardar);
+            UIHelper.EstiloHover(btnCancelar);
+
         }
 
         private void FormProductoEditar_Load(object sender, EventArgs e)
@@ -36,15 +49,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
-            // Validación simple
-            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                string.IsNullOrWhiteSpace(txtPrecio.Text) ||
-                string.IsNullOrWhiteSpace(txtStock.Text))
-            {
-                MessageBox.Show("Los campos Nombre, Precio y Stock son obligatorios.");
-                return;
-            }
-
             if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
             {
                 MessageBox.Show("Precio inválido.");
@@ -57,10 +61,11 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // Crear o actualizar
+            // ---------------------------
+            // 1) AGREGAR NUEVO PRODUCTO
+            // ---------------------------
             if (producto == null)
             {
-                // Crear nuevo
                 var nuevo = new ProductApiModel
                 {
                     Nombre = txtNombre.Text,
@@ -70,25 +75,55 @@ namespace SmartWarehouseDesktop.CRUDs
                     Categoria = txtCategoria.Text
                 };
 
-                await _service.Create(nuevo);
-                MessageBox.Show("Producto agregado correctamente.");
+                var ok = await _service.Create(nuevo);
+
+                if (ok)
+                {
+                    MessageBox.Show("Producto creado con éxito");
+                    this.DialogResult = DialogResult.OK;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error al crear el producto");
+                }
+
+                return;
+            }
+
+            // ---------------------------
+            // 2) EDITAR (PATCH)
+            // ---------------------------
+            var cambios = new Dictionary<string, object>();
+
+            if (txtNombre.Text != producto.Nombre)
+                cambios["nombre"] = txtNombre.Text;
+
+            if (txtDescripcion.Text != producto.Descripcion)
+                cambios["descripcion"] = txtDescripcion.Text;
+
+            if (precio != producto.Precio)
+                cambios["precio"] = precio;
+
+            if (stock != producto.Stock)
+                cambios["stock"] = stock;
+
+            if (txtCategoria.Text != producto.Categoria)
+                cambios["categoria"] = txtCategoria.Text;
+
+            var okEdit = await _service.PatchProducto(producto.IdProducto, cambios);
+
+            if (okEdit)
+            {
+                MessageBox.Show("Producto modificado correctamente.");
+                this.DialogResult = DialogResult.OK;
+                Close();
             }
             else
-            {
-                // Editar existente
-                producto.Nombre = txtNombre.Text;
-                producto.Descripcion = txtDescripcion.Text;
-                producto.Precio = precio;
-                producto.Stock = stock;
-                producto.Categoria = txtCategoria.Text;
-
-                await _service.Update(producto);
-                MessageBox.Show("Producto actualizado correctamente.");
-            }
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                MessageBox.Show("Error al modificar el producto.");
         }
+
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

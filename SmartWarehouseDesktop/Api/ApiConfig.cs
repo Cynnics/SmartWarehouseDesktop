@@ -3,6 +3,6 @@
     public static class ApiConfig
     {
         // Pon aquí la URL REAL de tu API
-        public const string BaseUrl = "http://localhost:5294/swagger/index.html";
+        public const string BaseUrl = "http://localhost:5294/";
     }
 }

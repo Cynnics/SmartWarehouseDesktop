@@ -9,12 +9,14 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormProductos : Form
     {
-        private readonly ProductService _productService = new ProductService();
+        private ProductService _productService;
+
         private readonly BindingSource _bs = new BindingSource();
 
         public FormProductos()
         {
             InitializeComponent();
+            _productService = new ProductService();
         }
 
         private async void FormProductos_Load(object sender, EventArgs e)
@@ -43,7 +45,7 @@ namespace SmartWarehouseDesktop.CRUDs
         {
             try
             {
-                dgvProductos.DataSource = null;
+               
                 var productos = await _productService.GetAll();
 
                 if (productos == null)
