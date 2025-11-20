@@ -99,6 +99,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\UserApiModel.cs" />
+    <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="Api\ApiConfig.cs" />
     <Compile Include="Api\ApiErrorResponse.cs" />
     <Compile Include="Api\ApiClient.cs" />
