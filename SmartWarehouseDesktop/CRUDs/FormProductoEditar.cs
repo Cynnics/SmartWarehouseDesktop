@@ -17,6 +17,7 @@ namespace SmartWarehouseDesktop.CRUDs
             InitializeComponent();
             this.producto = producto;
             UIHelper.EstilizarFormulario(this);
+            UIHelper.EstilizarLabel(lblTitulo,true);
             UIHelper.EstilizarLabel(lblNombre);
             UIHelper.EstilizarLabel(lblDescripcion);
             UIHelper.EstilizarLabel(lblPrecio);

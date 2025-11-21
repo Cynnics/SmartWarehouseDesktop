@@ -26,26 +26,27 @@ namespace SmartWarehouseDesktop.ApiServices
         // GET all users (ADMIN only)
         public async Task<List<UserApiModel>> GetAll()
         {
-            var response = await _http.GetAsync("api/usuarios");
+            var response = await _http.GetAsync("api/Usuarios");
 
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<UserApiModel>>(json);
         }
 
         // POST create user
-        public async Task<bool> Create(UserApiModel model)
+        public async Task<bool> Create(CreateUserApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _http.PostAsync("api/usuarios", content);
+            var response = await _http.PostAsync("api/Usuarios", content);
             return response.IsSuccessStatusCode;
         }
+
 
         // DELETE user
         public async Task<bool> Delete(int id)
         {
-            var response = await _http.DeleteAsync($"api/usuarios/{id}");
+            var response = await _http.DeleteAsync($"api/Usuarios/{id}");
             return response.IsSuccessStatusCode;
         }
 
@@ -55,7 +56,7 @@ namespace SmartWarehouseDesktop.ApiServices
             var json = JsonConvert.SerializeObject(cambios);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"api/usuarios/{id}");
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"api/Usuarios/{id}");
             request.Content = content;
 
             var response = await _http.SendAsync(request);

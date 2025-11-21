@@ -1,4 +1,6 @@
-﻿using SmartWarehouseDesktop.DAOs;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.DAOs;
 using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,16 +16,21 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormUsuarios: Form
     {
-        private UsuarioDAO usuarioDAO = new UsuarioDAO();
+        private readonly UserService _service = new UserService();
+        private readonly BindingSource _bs = new BindingSource();
 
         public FormUsuarios()
         {
             InitializeComponent();
         }
 
-        private void FormUsuarios_Load(object sender, EventArgs e)
+        private async void FormUsuarios_Load(object sender, EventArgs e)
         {
-            CargarUsuarios();
+
+            dgvUsuarios.AutoGenerateColumns = true;
+            dgvUsuarios.DataSource = _bs;
+
+            await CargarUsuarios();
             BackColor = TemaApp.AzulIntermedio;
             dgvUsuarios.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
@@ -37,82 +44,73 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstiloHover(btnEliminar);
         }
 
-        private void CargarUsuarios()
-        {
-            dgvUsuarios.DataSource = null;
-            List<Usuario> usuarios = usuarioDAO.ObtenerUsuarios();
-            dgvUsuarios.DataSource = usuarios;
-        }
-
-        private void btnCargar_Click(object sender, EventArgs e)
-        {
-            CargarUsuarios();
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private async Task CargarUsuarios()
         {
             try
             {
-                Usuario nuevo = new Usuario
-                {
-                    Nombre = Prompt.ShowDialog("Nombre:", "Nuevo usuario"),
-                    Email = Prompt.ShowDialog("Correo:", "Nuevo usuario"),
-                    Password = Prompt.ShowDialog("Contraseña:", "Nuevo usuario"),
-                    Rol = Prompt.ShowDialog("Rol (ADMIN, CLIENTE, REPARTIDOR):", "Nuevo usuario")
-                };
+                var lista = await _service.GetAll();
 
-                if (usuarioDAO.InsertarUsuario(nuevo))
+                if (lista == null)
                 {
-                    MessageBox.Show("Usuario agregado correctamente.");
-                    CargarUsuarios();
+                    MessageBox.Show("No se pudieron cargar los usuarios.");
+                    return;
                 }
+
+                _bs.DataSource = lista;
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Error al agregar usuario.");
+                MessageBox.Show("Error cargando usuarios: " + ex.Message);
             }
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+        private async void btnCargar_Click(object sender, EventArgs e)
+        {
+            await CargarUsuarios();
+        }
+
+        private async void btnAgregar_Click(object sender, EventArgs e)
+        {
+            var frm = new FormUsuarioEditar(null);
+            if (frm.ShowDialog() == DialogResult.OK)
+                CargarUsuarios();
+        }
+
+        private async void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvUsuarios.CurrentRow == null) return;
 
-            Usuario u = (Usuario)dgvUsuarios.CurrentRow.DataBoundItem;
+            var usuario = dgvUsuarios.CurrentRow.DataBoundItem as UserApiModel;
+            if (usuario == null) return;
 
-            try
-            {
-                u.Nombre = Prompt.ShowDialog("Nombre:", "Editar usuario", u.Nombre);
-                u.Email = Prompt.ShowDialog("Correo:", "Editar usuario", u.Email);
-                u.Password = Prompt.ShowDialog("Contraseña:", "Editar usuario", u.Password);
-                u.Rol = Prompt.ShowDialog("Rol:", "Editar usuario", u.Rol);
-
-                if (usuarioDAO.ActualizarUsuario(u))
-                {
-                    MessageBox.Show("Usuario actualizado correctamente.");
-                    CargarUsuarios();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al editar usuario.");
-            }
+            var frm = new FormUsuarioEditar(usuario);
+            if (frm.ShowDialog() == DialogResult.OK)
+                CargarUsuarios();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+
+
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvUsuarios.CurrentRow == null) return;
 
-            Usuario u = (Usuario)dgvUsuarios.CurrentRow.DataBoundItem;
+            var u = dgvUsuarios.CurrentRow.DataBoundItem as UserApiModel;
+            if (u == null) return;
 
-            var confirm = MessageBox.Show($"¿Eliminar usuario '{u.Nombre}'?", "Confirmar", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                if (usuarioDAO.EliminarUsuario(u.IdUsuario))
-                {
-                    MessageBox.Show("Usuario eliminado correctamente.");
-                    CargarUsuarios();
-                }
-            }
+            var confirm = MessageBox.Show($"¿Eliminar usuario '{u.Nombre}'?",
+                                          "Confirmar", MessageBoxButtons.YesNo);
+
+            if (confirm != DialogResult.Yes) return;
+
+            var ok = await _service.Delete(u.IdUsuario);
+
+            if (ok)
+                MessageBox.Show("Usuario eliminado.");
+            else
+                MessageBox.Show("No se pudo eliminar el usuario.");
+
+            await CargarUsuarios();
         }
+
     }
 }

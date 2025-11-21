@@ -40,7 +40,7 @@ namespace SmartWarehouseDesktop
 
                 using (var client = new HttpClient())
                 {
-                    string url = "http://localhost:5294/api/Auth/login";
+                    string url = "http://localhost:5294/api/Usuarios/login";
 
                     var response = await client.PostAsync(url, content);
 
