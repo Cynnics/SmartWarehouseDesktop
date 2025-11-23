@@ -1,0 +1,12 @@
+﻿using System;
+
+public class FacturaApiModel
+{
+    public int IdFactura { get; set; }
+    public int IdPedido { get; set; }
+    public DateTime FechaEmision { get; set; }
+
+    public decimal Subtotal { get; set; }
+    public decimal IVA { get; set; }
+    public decimal Total { get; set; }
+}

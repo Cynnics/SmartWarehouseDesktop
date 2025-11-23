@@ -50,6 +50,45 @@ namespace SmartWarehouseDesktop
             underline.BackColor = TemaApp.AzulClaro;
             txt.Controls.Add(underline);
         }
+        public static void EstilizarComboBox(ComboBox cmb)
+        {
+            cmb.BackColor = Color.White;
+            cmb.ForeColor = TemaApp.AzulOscuro;
+            cmb.Font = TemaApp.FuenteGeneral;
+
+            Panel underline = new Panel();
+            underline.Height = 2;
+            underline.Dock = DockStyle.Bottom;
+            underline.BackColor = TemaApp.AzulClaro;
+            cmb.Controls.Add(underline);
+        }
+
+        public static void EstilizarDate(DateTimePicker date)
+        {
+            date.BackColor = Color.White;
+            date.ForeColor = TemaApp.AzulOscuro;
+            date.Font = TemaApp.FuenteGeneral;
+
+            Panel underline = new Panel();
+            underline.Height = 2;
+            underline.Dock = DockStyle.Bottom;
+            underline.BackColor = TemaApp.AzulClaro;
+            date.Controls.Add(underline);
+        }
+
+        public static void EstilizarNumeric(NumericUpDown num)
+        {
+            num.BackColor = Color.White;
+            num.ForeColor = TemaApp.AzulOscuro;
+            num.Font = TemaApp.FuenteGeneral;
+
+            Panel underline = new Panel();
+            underline.Height = 2;
+            underline.Dock = DockStyle.Bottom;
+            underline.BackColor = TemaApp.AzulClaro;
+            num.Controls.Add(underline);
+        }
+
         public static void EstilizarFormulario(Form form)
         {
             form.BackColor = TemaApp.AzulOscuro;

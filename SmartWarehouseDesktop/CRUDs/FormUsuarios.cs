@@ -73,7 +73,7 @@ namespace SmartWarehouseDesktop.CRUDs
         {
             var frm = new FormUsuarioEditar(null);
             if (frm.ShowDialog() == DialogResult.OK)
-                CargarUsuarios();
+                await CargarUsuarios();
         }
 
         private async void btnEditar_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
             var frm = new FormUsuarioEditar(usuario);
             if (frm.ShowDialog() == DialogResult.OK)
-                CargarUsuarios();
+                await CargarUsuarios();
         }
 
 

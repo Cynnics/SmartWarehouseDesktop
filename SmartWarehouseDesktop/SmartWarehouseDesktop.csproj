@@ -100,7 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiModels\CreateUserApiModel.cs" />
+    <Compile Include="ApiModels\FacturaModel.cs" />
+    <Compile Include="ApiModels\PedidoApiModel.cs" />
     <Compile Include="ApiModels\UserApiModel.cs" />
+    <Compile Include="ApiServices\FacturaService.cs" />
+    <Compile Include="ApiServices\PedidoService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="Api\ApiConfig.cs" />
     <Compile Include="Api\ApiErrorResponse.cs" />
@@ -129,6 +133,12 @@
     </Compile>
     <Compile Include="CRUDs\FormFacturas.Designer.cs">
       <DependentUpon>FormFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormGenerarFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormGenerarFacturas.Designer.cs">
+      <DependentUpon>FormGenerarFacturas.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\FormPedidos.cs">
       <SubType>Form</SubType>
@@ -214,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormFacturas.resx">
       <DependentUpon>FormFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormGenerarFacturas.resx">
+      <DependentUpon>FormGenerarFacturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>
