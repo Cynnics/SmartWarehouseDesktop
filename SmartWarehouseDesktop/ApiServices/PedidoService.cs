@@ -17,25 +17,75 @@ namespace SmartWarehouseDesktop.ApiServices
         {
             _http = new HttpClient();
             _http.BaseAddress = new Uri(ApiConfig.BaseUrl);
-            _http.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Session.Token);
+
+            if (Session.Token != null)
+                _http.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", Session.Token);
+        }
+
+        public async Task<List<PedidoApiModel>> GetAll()
+        {
+            var response = await _http.GetAsync("api/Pedidos");
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<PedidoApiModel>>(json);
+        }
+
+        public async Task<bool> Create(PedidoApiModel model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _http.PostAsync("api/Pedidos", content);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> PatchEstado(int id, string nuevoEstado)
+        {
+            var json = $"\"{nuevoEstado}\""; // se envía como string plano JSON
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"api/Pedidos/{id}/estado");
+            request.Content = content;
+
+            var response = await _http.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
+
+
+        public async Task<bool> Delete(int id)
+        {
+            var response = await _http.DeleteAsync($"api/Pedidos/{id}");
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<List<PedidoApiModel>> GetEntregados()
         {
-            var response = await _http.GetAsync("api/Pedidos/entregados");
+            var response = await _http.GetAsync("api/Pedidos?estado=entregado");
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<PedidoApiModel>>(json);
         }
-        public async Task<(decimal Subtotal, decimal IVA, decimal Total)> GetTotales(int idPedido)
+
+        public async Task<TotalesPedidoApiModel> GetTotales(int idPedido)
         {
             var response = await _http.GetAsync($"api/Pedidos/{idPedido}/totales");
             string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TotalesPedidoApiModel>(json);
+        }
+    
+        public async Task<bool> Update(int id, PedidoApiModel model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            dynamic data = JsonConvert.DeserializeObject(json);
+            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Pedidos/{id}")
+            {
+                Content = content
+            };
 
-            return ((decimal)data.subtotal, (decimal)data.iva, (decimal)data.total);
+            var response = await _http.SendAsync(request);
+            return response.IsSuccessStatusCode;
         }
 
+
     }
-}   
+}

@@ -100,9 +100,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiModels\CreateUserApiModel.cs" />
+    <Compile Include="ApiModels\DetallePedidoApiModel.cs" />
     <Compile Include="ApiModels\FacturaModel.cs" />
     <Compile Include="ApiModels\PedidoApiModel.cs" />
+    <Compile Include="ApiModels\TotalesPedidoApiModel.cs" />
     <Compile Include="ApiModels\UserApiModel.cs" />
+    <Compile Include="ApiServices\DetallePedidoService.cs" />
     <Compile Include="ApiServices\FacturaService.cs" />
     <Compile Include="ApiServices\PedidoService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
@@ -122,6 +125,12 @@
     <Compile Include="CRUDs\FormAlbaranes.Designer.cs">
       <DependentUpon>FormAlbaranes.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRUDs\FormDetallePedidoEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormDetallePedidoEditar.Designer.cs">
+      <DependentUpon>FormDetallePedidoEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="CRUDs\FormDetallesPedido.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +148,12 @@
     </Compile>
     <Compile Include="CRUDs\FormGenerarFacturas.Designer.cs">
       <DependentUpon>FormGenerarFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormPedidoEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormPedidoEditar.Designer.cs">
+      <DependentUpon>FormPedidoEditar.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\FormPedidos.cs">
       <SubType>Form</SubType>
@@ -219,6 +234,9 @@
     <EmbeddedResource Include="CRUDs\FormAlbaranes.resx">
       <DependentUpon>FormAlbaranes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormDetallePedidoEditar.resx">
+      <DependentUpon>FormDetallePedidoEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormDetallesPedido.resx">
       <DependentUpon>FormDetallesPedido.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormGenerarFacturas.resx">
       <DependentUpon>FormGenerarFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormPedidoEditar.resx">
+      <DependentUpon>FormPedidoEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormPedidos.resx">
       <DependentUpon>FormPedidos.cs</DependentUpon>

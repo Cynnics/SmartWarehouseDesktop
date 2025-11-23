@@ -1,4 +1,5 @@
-﻿using SmartWarehouseDesktop.DAOs;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.DAOs;
 using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormDetallesPedido: Form
     {
-        private DetallePedidoDAO detalleDAO = new DetallePedidoDAO();
+        private readonly DetallePedidoService _service = new DetallePedidoService();
+
 
         public FormDetallesPedido()
         {
@@ -29,12 +31,11 @@ namespace SmartWarehouseDesktop.CRUDs
             idPedidoSeleccionado = idPedido;
         }
 
-        private void FormDetallesPedido_Load(object sender, EventArgs e)
+        private async void FormDetallesPedido_Load(object sender, EventArgs e)
         {
             if (idPedidoSeleccionado > 0)
-                CargarDetallesPorPedido(idPedidoSeleccionado);
-            else
-                CargarDetalles();
+                dgvDetalles.DataSource = await _service.GetByPedido(idPedidoSeleccionado);
+
             dgvDetalles.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);
@@ -47,19 +48,18 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstiloHover(btnEliminar);
         }
 
-        private void CargarDetalles()
+        private async void CargarDetalles()
         {
-            dgvDetalles.DataSource = null;
-            List<DetallePedido> detalles = detalleDAO.ObtenerDetalles();
-            dgvDetalles.DataSource = detalles;
+            dgvDetalles.DataSource = await _service.GetAll();
         }
 
-        private void CargarDetallesPorPedido(int idPedido)
+
+
+        private async void CargarDetallesPorPedido(int idPedido)
         {
-            dgvDetalles.DataSource = null;
-            List<DetallePedido> detalles = detalleDAO.ObtenerDetallesPorPedido(idPedido);
-            dgvDetalles.DataSource = detalles;
+            dgvDetalles.DataSource = await _service.GetByPedido(idPedido);
         }
+
 
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -69,70 +69,31 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int idPedido = Convert.ToInt32(Prompt.ShowDialog("ID del pedido:", "Agregar detalle"));
-                int idProducto = Convert.ToInt32(Prompt.ShowDialog("ID del producto:", "Agregar detalle"));
-                int cantidad = Convert.ToInt32(Prompt.ShowDialog("Cantidad:", "Agregar detalle"));
-                decimal subtotal = Convert.ToDecimal(Prompt.ShowDialog("Subtotal:", "Agregar detalle"));
-
-                DetallePedido nuevo = new DetallePedido
-                {
-                    IdPedido = idPedido,
-                    IdProducto = idProducto,
-                    Cantidad = cantidad,
-                    Subtotal = subtotal
-                };
-
-                if (detalleDAO.InsertarDetalle(nuevo))
-                {
-                    MessageBox.Show("Detalle agregado correctamente.");
-                    CargarDetalles();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al agregar detalle.");
-            }
+            var form = new FormDetallePedidoEditar();
+            if (form.ShowDialog() == DialogResult.OK)
+                CargarDetalles();
         }
+
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvDetalles.CurrentRow == null) return;
 
-            DetallePedido d = (DetallePedido)dgvDetalles.CurrentRow.DataBoundItem;
+            var pedido = dgvDetalles.CurrentRow.DataBoundItem as PedidoApiModel;
 
-            try
-            {
-                d.Cantidad = Convert.ToInt32(Prompt.ShowDialog("Cantidad:", "Editar detalle", d.Cantidad.ToString()));
-                d.Subtotal = Convert.ToDecimal(Prompt.ShowDialog("Subtotal:", "Editar detalle", d.Subtotal.ToString()));
-
-                if (detalleDAO.ActualizarDetalle(d))
-                {
-                    MessageBox.Show("Detalle actualizado correctamente.");
-                    CargarDetalles();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al editar detalle.");
-            }
+            var form = new FormPedidoEditar(pedido);
+            if (form.ShowDialog() == DialogResult.OK)
+                CargarDetalles();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (dgvDetalles.CurrentRow == null) return;
+            var d = (DetallePedidoApiModel)dgvDetalles.CurrentRow.DataBoundItem;
 
-            DetallePedido d = (DetallePedido)dgvDetalles.CurrentRow.DataBoundItem;
-
-            var confirm = MessageBox.Show($"¿Eliminar detalle #{d.IdDetalle}?", "Confirmar", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
+            if (await _service.Delete(d.IdDetalle))
             {
-                if (detalleDAO.EliminarDetalle(d.IdDetalle))
-                {
-                    MessageBox.Show("Detalle eliminado correctamente.");
-                    CargarDetalles();
-                }
+                MessageBox.Show("Detalle eliminado.");
+                CargarDetalles();
             }
         }
     }

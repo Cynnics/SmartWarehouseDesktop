@@ -8,23 +8,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.ApiModels;
+
 using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormPedidos: Form
     {
-        private PedidoDAO pedidoDAO = new PedidoDAO();
-        private UsuarioDAO usuarioDAO = new UsuarioDAO(); // Para obtener clientes/repartidores
+        private readonly PedidoService _service = new PedidoService();
+
 
         public FormPedidos()
         {
             InitializeComponent();
         }
 
-        private void FormPedidos_Load(object sender, EventArgs e)
+        private async void FormPedidos_Load(object sender, EventArgs e)
         {
-            CargarPedidos();
+            await CargarPedidos();
             BackColor = TemaApp.AzulIntermedio;
             dgvPedidos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
@@ -40,89 +43,60 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstiloHover(btnForm);
         }
 
-        private void CargarPedidos()
+        private async Task CargarPedidos()
         {
-            dgvPedidos.DataSource = null;
-            List<Pedido> pedidos = pedidoDAO.ObtenerPedidos();
-            dgvPedidos.DataSource = pedidos;
+            var lista = await _service.GetAll();
+            dgvPedidos.DataSource = lista;
         }
 
-        private void btnCargar_Click(object sender, EventArgs e)
+
+        private async void btnCargar_Click(object sender, EventArgs e)
         {
-            CargarPedidos();
+            await CargarPedidos();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int idCliente = Convert.ToInt32(Prompt.ShowDialog("ID del cliente:", "Nuevo pedido"));
-                string estado = Prompt.ShowDialog("Estado (Pendiente/En curso/Entregado):", "Nuevo pedido");
-
-                Pedido nuevo = new Pedido
-                {
-                    FechaPedido = DateTime.Now,
-                    Estado = estado,
-                    IdCliente = idCliente,
-                    IdRepartidor = null
-                };
-
-                if (pedidoDAO.InsertarPedido(nuevo))
-                {
-                    MessageBox.Show("Pedido agregado correctamente.");
-                    CargarPedidos();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al agregar pedido.");
-            }
+            var form = new FormPedidoEditar();
+            if (form.ShowDialog() == DialogResult.OK)
+                await CargarPedidos();
         }
 
-        private void btnEditar_Click(object sender, EventArgs e)
+
+
+        private async Task btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvPedidos.CurrentRow == null) return;
 
-            Pedido p = (Pedido)dgvPedidos.CurrentRow.DataBoundItem;
+            var pedido = dgvPedidos.CurrentRow.DataBoundItem as PedidoApiModel;
 
-            try
-            {
-                p.Estado = Prompt.ShowDialog("Estado:", "Editar pedido", p.Estado);
-                string idRep = Prompt.ShowDialog("ID Repartidor (dejar vacío si ninguno):", "Editar pedido", p.IdRepartidor?.ToString() ?? "");
-                p.IdRepartidor = string.IsNullOrEmpty(idRep) ? (int?)null : int.Parse(idRep);
-
-                if (pedidoDAO.ActualizarPedido(p))
-                {
-                    MessageBox.Show("Pedido actualizado correctamente.");
-                    CargarPedidos();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al editar pedido.");
-            }
+            var form = new FormPedidoEditar(pedido);
+            if (form.ShowDialog() == DialogResult.OK)
+               await CargarPedidos();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+
+
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvPedidos.CurrentRow == null) return;
 
-            Pedido p = (Pedido)dgvPedidos.CurrentRow.DataBoundItem;
+            var p = (PedidoApiModel)dgvPedidos.CurrentRow.DataBoundItem;
 
-            var confirm = MessageBox.Show($"¿Eliminar pedido #{p.IdPedido}?", "Confirmar", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
+            if (MessageBox.Show($"¿Eliminar pedido #{p.IdPedido}?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (pedidoDAO.EliminarPedido(p.IdPedido))
+                if (await _service.Delete(p.IdPedido))
                 {
-                    MessageBox.Show("Pedido eliminado correctamente.");
-                    CargarPedidos();
+                    MessageBox.Show("Pedido eliminado.");
+                    await CargarPedidos();
                 }
             }
         }
+
 
         private void btnForm_Click(object sender, EventArgs e)
         {
-            /*
+            
             if (dgvPedidos.CurrentRow == null)
             {
                 MessageBox.Show("Selecciona un pedido para ver su detalle.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -136,9 +110,15 @@ namespace SmartWarehouseDesktop.CRUDs
             {
                 formDetalle.StartPosition = FormStartPosition.CenterParent;
                 formDetalle.ShowDialog(this);
-            }*/
+            }
             FormDetallesPedido formDetalles = new FormDetallesPedido();
             formDetalles.ShowDialog(); 
+        }
+
+        private void btnEditar_Click_Sync(object sender, EventArgs e)
+        {
+            // Llama al método asíncrono y maneja la excepción si es necesario
+            btnEditar_Click(sender, e).GetAwaiter().GetResult();
         }
     }
 }
