@@ -31,10 +31,13 @@ namespace SmartWarehouseDesktop.CRUDs
             idPedidoSeleccionado = idPedido;
         }
 
-        private async void FormDetallesPedido_Load(object sender, EventArgs e)
+        private void FormDetallesPedido_Load(object sender, EventArgs e)
         {
             if (idPedidoSeleccionado > 0)
-                dgvDetalles.DataSource = await _service.GetByPedido(idPedidoSeleccionado);
+                 CargarDetallesPorPedido(idPedidoSeleccionado);
+            else
+                 CargarDetalles();
+
 
             dgvDetalles.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
@@ -79,11 +82,13 @@ namespace SmartWarehouseDesktop.CRUDs
         {
             if (dgvDetalles.CurrentRow == null) return;
 
-            var pedido = dgvDetalles.CurrentRow.DataBoundItem as PedidoApiModel;
+            DetallePedidoApiModel d = (DetallePedidoApiModel)dgvDetalles.CurrentRow.DataBoundItem;
 
-            var form = new FormPedidoEditar(pedido);
-            if (form.ShowDialog() == DialogResult.OK)
-                CargarDetalles();
+            using (var frm = new FormDetallePedidoEditar(d))
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                     CargarDetalles(); // O cargar por pedido
+            }
         }
 
         private async void btnEliminar_Click(object sender, EventArgs e)

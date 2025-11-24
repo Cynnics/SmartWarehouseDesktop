@@ -27,6 +27,23 @@ namespace SmartWarehouseDesktop.CRUDs
                 nudCantidad.Value = _detalle.Cantidad;
                 nudSubtotal.Value = _detalle.Subtotal;
             }
+
+            UIHelper.EstilizarFormulario(this);
+            UIHelper.EstilizarLabel(lblTitulo, true);
+            UIHelper.EstilizarLabel(lblIDPedido);
+            UIHelper.EstilizarLabel(lblIDProducto);
+            UIHelper.EstilizarLabel(lblCantidad);
+            UIHelper.EstilizarLabel(lblSubtotal);
+            UIHelper.EstilizarNumeric(nudIDPedido);
+            UIHelper.EstilizarNumeric(nudIDProducto);
+            UIHelper.EstilizarNumeric(nudCantidad);
+            UIHelper.EstilizarNumeric(nudSubtotal);
+            UIHelper.EstilizarBoton(btnGuardar);
+            UIHelper.EstilizarBoton(btnCancelar);
+            UIHelper.EstiloHover(btnGuardar);
+            UIHelper.EstiloHover(btnCancelar);
+
+
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)

@@ -99,6 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\AlbaranApiModel.cs" />
     <Compile Include="ApiModels\CreateUserApiModel.cs" />
     <Compile Include="ApiModels\DetallePedidoApiModel.cs" />
     <Compile Include="ApiModels\FacturaModel.cs" />

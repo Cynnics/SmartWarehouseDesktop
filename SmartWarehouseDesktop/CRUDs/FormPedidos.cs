@@ -64,7 +64,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
 
 
-        private async Task btnEditar_Click(object sender, EventArgs e)
+        private async void btnEditar_Click(object sender, EventArgs e)
         {
             if (dgvPedidos.CurrentRow == null) return;
 
@@ -72,8 +72,9 @@ namespace SmartWarehouseDesktop.CRUDs
 
             var form = new FormPedidoEditar(pedido);
             if (form.ShowDialog() == DialogResult.OK)
-               await CargarPedidos();
+                await CargarPedidos();
         }
+
 
 
 
@@ -111,14 +112,11 @@ namespace SmartWarehouseDesktop.CRUDs
                 formDetalle.StartPosition = FormStartPosition.CenterParent;
                 formDetalle.ShowDialog(this);
             }
-            FormDetallesPedido formDetalles = new FormDetallesPedido();
-            formDetalles.ShowDialog(); 
+
+            
+
         }
 
-        private void btnEditar_Click_Sync(object sender, EventArgs e)
-        {
-            // Llama al método asíncrono y maneja la excepción si es necesario
-            btnEditar_Click(sender, e).GetAwaiter().GetResult();
-        }
+        
     }
 }

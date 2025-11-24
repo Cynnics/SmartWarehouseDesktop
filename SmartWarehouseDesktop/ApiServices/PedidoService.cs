@@ -71,20 +71,18 @@ namespace SmartWarehouseDesktop.ApiServices
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TotalesPedidoApiModel>(json);
         }
-    
-        public async Task<bool> Update(int id, PedidoApiModel model)
+
+        public async Task<bool> Update(PedidoApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var request = new HttpRequestMessage(HttpMethod.Put, $"api/Pedidos/{id}")
-            {
-                Content = content
-            };
+            var response = await _http.PutAsync($"api/Pedidos/{model.IdPedido}", content);
 
-            var response = await _http.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
+
+
 
 
     }

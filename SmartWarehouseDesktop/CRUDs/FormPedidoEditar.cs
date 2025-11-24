@@ -34,6 +34,22 @@ namespace SmartWarehouseDesktop.CRUDs
                 dtpFechaPedido.Value = DateTime.Now;
                 cmbEstado.SelectedIndex = 0;
             }
+
+            UIHelper.EstilizarFormulario(this);
+            UIHelper.EstilizarLabel(lblTitulo, true);
+            UIHelper.EstilizarLabel(lblFechaPedido);
+            UIHelper.EstilizarLabel(lblEstado);
+            UIHelper.EstilizarLabel(lblCliente);
+            UIHelper.EstilizarLabel(lblRepartidor);
+            UIHelper.EstilizarDate(dtpFechaPedido);
+            UIHelper.EstilizarComboBox(cmbEstado);
+            UIHelper.EstilizarNumeric(nudCliente);
+            UIHelper.EstilizarNumeric(nudRepartidor);
+            UIHelper.EstilizarBoton(btnGuardar);
+            UIHelper.EstilizarBoton(btnCancelar);
+            UIHelper.EstiloHover(btnGuardar);
+            UIHelper.EstiloHover(btnCancelar);
+
         }
 
         private async void btnGuardar_Click(object sender, EventArgs e)
@@ -52,7 +68,7 @@ namespace SmartWarehouseDesktop.CRUDs
             if (_esNuevo)
                 ok = await _pedidoService.Create(model);
             else
-                ok = await _pedidoService.Update(model.IdPedido, model);
+                ok = await _pedidoService.Update(model);
 
             if (ok)
             {
