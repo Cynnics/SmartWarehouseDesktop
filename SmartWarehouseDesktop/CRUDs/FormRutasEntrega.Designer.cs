@@ -2,7 +2,7 @@
 
 namespace SmartWarehouseDesktop.CRUDs
 {
-    partial class FormRutas
+    partial class FormRutasEntrega
     {
         /// <summary>
         /// Required designer variable.

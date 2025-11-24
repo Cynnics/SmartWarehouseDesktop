@@ -104,12 +104,18 @@
     <Compile Include="ApiModels\DetallePedidoApiModel.cs" />
     <Compile Include="ApiModels\FacturaModel.cs" />
     <Compile Include="ApiModels\PedidoApiModel.cs" />
+    <Compile Include="ApiModels\RutaEntregaApiModel.cs" />
+    <Compile Include="ApiModels\RutaPedidoApiModel.cs" />
     <Compile Include="ApiModels\TotalesPedidoApiModel.cs" />
+    <Compile Include="ApiModels\UbicacionRepartidorApiModel.cs" />
     <Compile Include="ApiModels\UserApiModel.cs" />
     <Compile Include="ApiServices\AlbaranService.cs" />
     <Compile Include="ApiServices\DetallePedidoService.cs" />
     <Compile Include="ApiServices\FacturaService.cs" />
     <Compile Include="ApiServices\PedidoService.cs" />
+    <Compile Include="ApiServices\RutaEntregaService.cs" />
+    <Compile Include="ApiServices\RutaPedidoService.cs" />
+    <Compile Include="ApiServices\UbicacionRepartidorService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="Api\ApiConfig.cs" />
     <Compile Include="Api\ApiErrorResponse.cs" />
@@ -181,11 +187,17 @@
     <Compile Include="CRUDs\FormProductos.Designer.cs">
       <DependentUpon>FormProductos.cs</DependentUpon>
     </Compile>
-    <Compile Include="CRUDs\FormRutas.cs">
+    <Compile Include="CRUDs\FormRutasEntrega.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CRUDs\FormRutas.Designer.cs">
-      <DependentUpon>FormRutas.cs</DependentUpon>
+    <Compile Include="CRUDs\FormRutasEntrega.Designer.cs">
+      <DependentUpon>FormRutasEntrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDs\FormRutasEntregaEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormRutasEntregaEditar.Designer.cs">
+      <DependentUpon>FormRutasEntregaEditar.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\FormUbicaciones.cs">
       <SubType>Form</SubType>
@@ -269,8 +281,11 @@
     <EmbeddedResource Include="CRUDs\FormProductos.resx">
       <DependentUpon>FormProductos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CRUDs\FormRutas.resx">
-      <DependentUpon>FormRutas.cs</DependentUpon>
+    <EmbeddedResource Include="CRUDs\FormRutasEntrega.resx">
+      <DependentUpon>FormRutasEntrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormRutasEntregaEditar.resx">
+      <DependentUpon>FormRutasEntregaEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUbicaciones.resx">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>

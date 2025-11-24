@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.nudEntregadoPor = new System.Windows.Forms.NumericUpDown();
             this.cmbPedidos = new System.Windows.Forms.ComboBox();
@@ -41,7 +42,9 @@
             this.txtRecibidoPor = new System.Windows.Forms.TextBox();
             this.lblEstado = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudEntregadoPor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // dtpFecha
@@ -157,6 +160,10 @@
             this.cmbEstado.Size = new System.Drawing.Size(100, 21);
             this.cmbEstado.TabIndex = 57;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // FormAlbaranEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +186,7 @@
             this.Text = "FormAlbaranEditar";
             this.Load += new System.EventHandler(this.FormAlbaranEditar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudEntregadoPor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,5 +207,6 @@
         private System.Windows.Forms.TextBox txtRecibidoPor;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.ComboBox cmbEstado;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

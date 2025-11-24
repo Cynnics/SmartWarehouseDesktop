@@ -73,7 +73,7 @@ namespace SmartWarehouseDesktop
 
         private void btnRutas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario(new FormRutas());
+            AbrirFormulario(new FormRutasEntrega());
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
