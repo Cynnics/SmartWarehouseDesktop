@@ -106,6 +106,7 @@
     <Compile Include="ApiModels\PedidoApiModel.cs" />
     <Compile Include="ApiModels\TotalesPedidoApiModel.cs" />
     <Compile Include="ApiModels\UserApiModel.cs" />
+    <Compile Include="ApiServices\AlbaranService.cs" />
     <Compile Include="ApiServices\DetallePedidoService.cs" />
     <Compile Include="ApiServices\FacturaService.cs" />
     <Compile Include="ApiServices\PedidoService.cs" />
@@ -120,6 +121,12 @@
     <Compile Include="ApiModels\UsuarioModel.cs" />
     <Compile Include="ApiServices\ProductService.cs" />
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="CRUDs\FormAlbaranEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormAlbaranEditar.Designer.cs">
+      <DependentUpon>FormAlbaranEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="CRUDs\FormAlbaranes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +239,9 @@
     <Compile Include="UI\FontManager.cs" />
     <Compile Include="UI\TemaApp.cs" />
     <Compile Include="UI\UIHelper.cs" />
+    <EmbeddedResource Include="CRUDs\FormAlbaranEditar.resx">
+      <DependentUpon>FormAlbaranEditar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormAlbaranes.resx">
       <DependentUpon>FormAlbaranes.cs</DependentUpon>
     </EmbeddedResource>

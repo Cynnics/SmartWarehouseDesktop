@@ -1,4 +1,6 @@
-﻿using SmartWarehouseDesktop.DAOs;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.DAOs;
 using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,16 +16,17 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormAlbaranes : Form
     {
-        private AlbaranDAO albaranDAO = new AlbaranDAO();
+        private readonly AlbaranService _service = new AlbaranService();
 
         public FormAlbaranes()
         {
             InitializeComponent();
         }
 
-        private void FormAlbaranes_Load(object sender, EventArgs e)
+        private async void FormAlbaranes_Load(object sender, EventArgs e)
         {
-            CargarAlbaranes();
+            await CargarAlbaranes();
+
             dgvAlbaranes.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);
@@ -34,57 +37,43 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstiloHover(btnEliminar);
         }
 
-        private void CargarAlbaranes()
+        private async Task CargarAlbaranes()
         {
-            dgvAlbaranes.DataSource = null;
-            dgvAlbaranes.DataSource = albaranDAO.ObtenerAlbaranes();
+            var data = await _service.GetAll();
+            dgvAlbaranes.DataSource = data;
         }
 
-        private void btnCargar_Click(object sender, EventArgs e)
+        private async void btnCargar_Click(object sender, EventArgs e)
         {
-            CargarAlbaranes();
+            await CargarAlbaranes();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int idPedido = Convert.ToInt32(Prompt.ShowDialog("ID del pedido:", "Nuevo albarán"));
-                int entregadoPor = Convert.ToInt32(Prompt.ShowDialog("ID del repartidor:", "Nuevo albarán"));
-                string recibidoPor = Prompt.ShowDialog("Recibido por:", "Nuevo albarán");
+            var frm = new FormAlbaranEditar(null);
 
-                Albaran a = new Albaran
-                {
-                    IdPedido = idPedido,
-                    FechaGeneracion = DateTime.Now,
-                    EntregadoPor = entregadoPor,
-                    RecibidoPor = recibidoPor
-                };
-
-                if (albaranDAO.InsertarAlbaran(a))
-                {
-                    MessageBox.Show("Albarán creado correctamente.");
-                    CargarAlbaranes();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al crear el albarán.");
-            }
+            if (frm.ShowDialog() == DialogResult.OK)
+                await CargarAlbaranes();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvAlbaranes.CurrentRow == null) return;
-            var a = (Albaran)dgvAlbaranes.CurrentRow.DataBoundItem;
 
-            if (MessageBox.Show($"¿Eliminar albarán #{a.IdAlbaran}?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            var albaran = dgvAlbaranes.CurrentRow.DataBoundItem as AlbaranApiModel;
+
+            if (MessageBox.Show($"¿Eliminar albarán #{albaran.IdAlbaran}?",
+                "Confirmar", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            if (await _service.Delete(albaran.IdAlbaran))
             {
-                if (albaranDAO.EliminarAlbaran(a.IdAlbaran))
-                {
-                    MessageBox.Show("Albarán eliminado.");
-                    CargarAlbaranes();
-                }
+                MessageBox.Show("Albarán eliminado.");
+                await CargarAlbaranes();
+            }
+            else
+            {
+                MessageBox.Show("Error al eliminar albarán.");
             }
         }
     }
