@@ -2,6 +2,7 @@
 using SmartWarehouseDesktop.ApiServices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,23 +43,27 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async Task CargarRutas()
         {
+            
             try
             {
-                dgvRutas.DataSource = null;
                 var data = await _service.GetAll();
+
                 if (data == null)
                 {
-                    MessageBox.Show("No se pudieron obtener las rutas (respuesta nula). Comprueba la API o el token.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("GetAll devolvió NULL");
                     return;
                 }
+
 
                 _bs.DataSource = data;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar rutas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ERROR CargarRutas: " + ex.Message);
             }
         }
+
+
 
         private async void btnCargar_Click(object sender, EventArgs e)
         {
@@ -67,100 +72,36 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
+            using (var frm = new FormRutasEntregaEditar())
             {
-                // opcional: reemplazar por un FormRutaEditar cuando lo tengas
-                string idRepStr = Prompt.ShowDialog("ID del repartidor:", "Nueva ruta");
-                if (!int.TryParse(idRepStr, out int idRep))
-                {
-                    MessageBox.Show("ID de repartidor inválido.");
-                    return;
-                }
-
-                string fechaStr = Prompt.ShowDialog("Fecha de la ruta (YYYY-MM-DD):", "Nueva ruta", DateTime.Now.ToString("yyyy-MM-dd"));
-                if (!DateTime.TryParse(fechaStr, out DateTime fecha))
-                {
-                    MessageBox.Show("Fecha inválida.");
-                    return;
-                }
-
-                string distanciaStr = Prompt.ShowDialog("Distancia estimada (km):", "Nueva ruta", "0");
-                if (!decimal.TryParse(distanciaStr, out decimal distancia))
-                {
-                    MessageBox.Show("Distancia inválida.");
-                    return;
-                }
-
-                string duracionStr = Prompt.ShowDialog("Duración estimada (min):", "Nueva ruta", "0");
-                if (!int.TryParse(duracionStr, out int duracion))
-                {
-                    MessageBox.Show("Duración inválida.");
-                    return;
-                }
-
-                var nuevo = new RutaEntregaApiModel
-                {
-                    IdRepartidor = idRep,
-                    FechaRuta = fecha,
-                    DistanciaEstimadaKm = distancia,
-                    DuracionEstimadaMin = duracion,
-                    Estado = "planificada"
-                };
-
-                bool ok = await _service.Create(nuevo);
-                if (ok)
-                {
-                    MessageBox.Show("Ruta creada correctamente.");
+                if (frm.ShowDialog(this) == DialogResult.OK)
                     await CargarRutas();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo crear la ruta. Comprueba la respuesta del servidor.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al crear la ruta: " + ex.Message);
             }
         }
+
 
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (dgvRutas.CurrentRow == null) return;
+            if (dgvRutas.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona una ruta.", "Aviso");
+                return;
+            }
 
             var ruta = dgvRutas.CurrentRow.DataBoundItem as RutaEntregaApiModel;
-            if (ruta == null) return;
-
-            try
+            if (ruta == null)
             {
-                // si haces FormRutaEditar sustituye los Prompt por el form modal
-                string nuevoEstado = Prompt.ShowDialog("Nuevo estado:", "Actualizar ruta", ruta.Estado ?? "");
-                string distanciaStr = Prompt.ShowDialog("Distancia (km):", "Actualizar ruta", (ruta.DistanciaEstimadaKm ?? 0).ToString());
-                string duracionStr = Prompt.ShowDialog("Duración (min):", "Actualizar ruta", (ruta.DuracionEstimadaMin ?? 0).ToString());
-
-                if (decimal.TryParse(distanciaStr, out decimal distancia))
-                    ruta.DistanciaEstimadaKm = distancia;
-                if (int.TryParse(duracionStr, out int duracion))
-                    ruta.DuracionEstimadaMin = duracion;
-                if (!string.IsNullOrWhiteSpace(nuevoEstado))
-                    ruta.Estado = nuevoEstado;
-
-                bool ok = await _service.Update(ruta);
-                if (ok)
-                {
-                    MessageBox.Show("Ruta actualizada.");
-                    await CargarRutas();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo actualizar la ruta. Comprueba la respuesta del servidor.");
-                }
+                MessageBox.Show("Error: elemento inválido.");
+                return;
             }
-            catch (Exception ex)
+
+            using (var frm = new FormRutasEntregaEditar(ruta))
             {
-                MessageBox.Show("Error al actualizar: " + ex.Message);
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                    await CargarRutas();
             }
         }
+
 
         private async void btnEliminar_Click(object sender, EventArgs e)
         {

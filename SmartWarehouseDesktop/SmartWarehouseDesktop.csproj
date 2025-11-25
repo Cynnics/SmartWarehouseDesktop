@@ -104,6 +104,7 @@
     <Compile Include="ApiModels\DetallePedidoApiModel.cs" />
     <Compile Include="ApiModels\FacturaModel.cs" />
     <Compile Include="ApiModels\PedidoApiModel.cs" />
+    <Compile Include="ApiModels\RepartidorApiModel.cs" />
     <Compile Include="ApiModels\RutaEntregaApiModel.cs" />
     <Compile Include="ApiModels\RutaPedidoApiModel.cs" />
     <Compile Include="ApiModels\TotalesPedidoApiModel.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="ApiServices\DetallePedidoService.cs" />
     <Compile Include="ApiServices\FacturaService.cs" />
     <Compile Include="ApiServices\PedidoService.cs" />
+    <Compile Include="ApiServices\RepartidorService.cs" />
     <Compile Include="ApiServices\RutaEntregaService.cs" />
     <Compile Include="ApiServices\RutaPedidoService.cs" />
     <Compile Include="ApiServices\UbicacionRepartidorService.cs" />

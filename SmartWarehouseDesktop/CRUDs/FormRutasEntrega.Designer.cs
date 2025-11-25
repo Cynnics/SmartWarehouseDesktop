@@ -30,7 +30,7 @@ namespace SmartWarehouseDesktop.CRUDs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnCargar = new System.Windows.Forms.Button();
@@ -69,7 +69,7 @@ namespace SmartWarehouseDesktop.CRUDs
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(267, 30);
+            this.btnCargar.Location = new System.Drawing.Point(607, 30);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(150, 40);
             this.btnCargar.TabIndex = 27;
@@ -81,14 +81,14 @@ namespace SmartWarehouseDesktop.CRUDs
             // 
             this.dgvRutas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRutas.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(39)))), ((int)(((byte)(71)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRutas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(39)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRutas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRutas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRutas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRutas.Location = new System.Drawing.Point(0, 0);
@@ -98,7 +98,7 @@ namespace SmartWarehouseDesktop.CRUDs
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(607, 30);
+            this.btnActualizar.Location = new System.Drawing.Point(267, 30);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(150, 40);
             this.btnActualizar.TabIndex = 30;
@@ -160,7 +160,7 @@ namespace SmartWarehouseDesktop.CRUDs
             this.btnForm.UseVisualStyleBackColor = true;
             this.btnForm.Click += new System.EventHandler(this.btnForm_Click);
             // 
-            // FormRutas
+            // FormRutasEntrega
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -170,7 +170,7 @@ namespace SmartWarehouseDesktop.CRUDs
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormRutas";
+            this.Name = "FormRutasEntrega";
             this.Padding = new System.Windows.Forms.Padding(20);
             this.Text = "FormRutas";
             this.Load += new System.EventHandler(this.FormRutas_Load);
