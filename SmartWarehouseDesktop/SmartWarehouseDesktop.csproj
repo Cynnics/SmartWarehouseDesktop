@@ -207,6 +207,12 @@
     <Compile Include="CRUDs\FormUbicaciones.Designer.cs">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRUDs\FormUbicacionesEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormUbicacionesEditar.Designer.cs">
+      <DependentUpon>FormUbicacionesEditar.cs</DependentUpon>
+    </Compile>
     <Compile Include="CRUDs\FormUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUbicaciones.resx">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormUbicacionesEditar.resx">
+      <DependentUpon>FormUbicacionesEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUsuarios.resx">
       <DependentUpon>FormUsuarios.cs</DependentUpon>
