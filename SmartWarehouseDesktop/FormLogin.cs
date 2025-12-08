@@ -1,5 +1,4 @@
 ﻿using SmartWarehouseDesktop.ApiModels;
-using SmartWarehouseDesktop.Conexion;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -9,7 +8,7 @@ namespace SmartWarehouseDesktop
 {
     public partial class FormLogin : Form
     {
-        private DBConnection db = new DBConnection();
+        
 
         public FormLogin()
         {
