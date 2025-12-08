@@ -28,24 +28,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void FormRutasEntregaEditar_Load(object sender, EventArgs e)
         {
-            UIHelper.EstilizarFormulario(this);
-            UIHelper.EstilizarLabel(lblTitulo, true);
-            UIHelper.EstilizarLabel(lblRepartidor);
-            UIHelper.EstilizarLabel(lblFechaRuta);
-            UIHelper.EstilizarLabel(lblDistancia);
-            UIHelper.EstilizarLabel(lblDuracion);
-            UIHelper.EstilizarLabel(lblEstado);
-            UIHelper.EstilizarComboBox(cmbRepartidor);
-            UIHelper.EstilizarDate(dtpFechaRuta);
-            UIHelper.EstilizarNumeric(nudDistancia);
-            UIHelper.EstilizarNumeric(nudDuracion);
-            UIHelper.EstilizarComboBox(cmbEstado);
-            UIHelper.EstilizarBoton(btnGuardar);
-            UIHelper.EstiloHover(btnGuardar);
-            UIHelper.EstilizarBoton(btnCancelar);
-            UIHelper.EstiloHover(btnCancelar);
-
-
             var repartidores = await _repService.GetAll();
 
             cmbRepartidor.DataSource = repartidores;
@@ -53,7 +35,6 @@ namespace SmartWarehouseDesktop.CRUDs
             cmbRepartidor.ValueMember = "IdUsuario";
 
             cmbEstado.Items.AddRange(new[] { "planificada", "en_proceso", "completada", "cancelada" });
-            cmbEstado.SelectedIndex = 0;
 
             if (!_esNuevo)
             {

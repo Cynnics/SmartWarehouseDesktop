@@ -63,20 +63,5 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
 
-        public async Task<bool> Update(UbicacionRepartidorApiModel model)
-        {
-            string json = JsonConvert.SerializeObject(model);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var request = new HttpRequestMessage(new HttpMethod("PATCH"),
-                $"api/Ubicaciones/{model.IdUbicacion}");
-
-            request.Content = content;
-
-            var resp = await _http.SendAsync(request);
-            return resp.IsSuccessStatusCode;
-        }
-
-
     }
 }
