@@ -1,6 +1,5 @@
 ﻿using SmartWarehouseDesktop.ApiModels;
 using SmartWarehouseDesktop.ApiServices;
-using SmartWarehouseDesktop.Entity;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

@@ -32,6 +32,17 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<UserApiModel>>(json);
         }
 
+        // GET single user by ID
+        public async Task<UserApiModel> GetById(int id)
+        {
+            var response = await _http.GetAsync($"api/Usuarios/{id}");
+
+          
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UserApiModel>(json);
+        }
+
+
         // POST create user
         public async Task<bool> Create(CreateUserApiModel model)
         {

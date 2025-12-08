@@ -49,7 +49,7 @@
             this.btnEliminar.TabIndex = 27;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.btnEliminar.Click += new System.EventHandler(async (sender, e) => await this.btnEliminar_Click(sender, e));
             // 
             // btnAgregar
             // 
@@ -69,7 +69,7 @@
             this.btnCargar.TabIndex = 24;
             this.btnCargar.Text = "Cargar";
             this.btnCargar.UseVisualStyleBackColor = true;
-            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_ClickAsync);
             // 
             // dgvUbicaciones
             // 

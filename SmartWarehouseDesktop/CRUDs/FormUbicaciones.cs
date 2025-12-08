@@ -1,12 +1,7 @@
-﻿using SmartWarehouseDesktop.DAOs;
-using SmartWarehouseDesktop.Entity;
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.ApiServices;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,7 +9,7 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormUbicaciones: Form
     {
-        private UbicacionRepartidorDAO ubicacionDAO = new UbicacionRepartidorDAO();
+        private readonly UbicacionRepartidorService _ubicacionService = new UbicacionRepartidorService();
         private int idRuta;  // 🔹 Guardamos el id de la ruta
 
         public FormUbicaciones()
@@ -28,13 +23,13 @@ namespace SmartWarehouseDesktop.CRUDs
             this.idRuta = idRuta;
         }
 
-        private void FormUbicaciones_Load(object sender, EventArgs e)
+        private async void FormUbicaciones_Load(object sender, EventArgs e)
         {
             
             if (idRuta > 0)
-                CargarUbicacionesPorRuta(idRuta);
+                await CargarUbicacionesPorRutaAsync(idRuta);
             else
-                CargarUbicaciones();
+                await CargarUbicacionesAsync();
 
             dgvUbicaciones.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
@@ -46,25 +41,25 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstiloHover(btnEliminar);
         }
 
-        private void CargarUbicaciones()
+        private async Task CargarUbicacionesAsync()
         {
             dgvUbicaciones.DataSource = null;
-            List<UbicacionRepartidor> ubicaciones = ubicacionDAO.ObtenerUbicaciones();
+            List<UbicacionRepartidorApiModel> ubicaciones = await _ubicacionService.GetAll();
             dgvUbicaciones.DataSource = ubicaciones;
         }
-        private void CargarUbicacionesPorRuta(int idRuta)
+        private async Task CargarUbicacionesPorRutaAsync(int idRuta)
         {
             dgvUbicaciones.DataSource = null;
-            List<UbicacionRepartidor> ubicaciones = ubicacionDAO.ObtenerUbicacionesPorRuta(idRuta);
+            List<UbicacionRepartidorApiModel> ubicaciones = await _ubicacionService.GetByRuta(idRuta);
             dgvUbicaciones.DataSource = ubicaciones;
         }
 
-        private void btnCargar_Click(object sender, EventArgs e)
+        private async void btnCargar_ClickAsync(object sender, EventArgs e)
         {
-            CargarUbicaciones();
+            await CargarUbicacionesAsync();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private async void btnAgregar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -73,7 +68,7 @@ namespace SmartWarehouseDesktop.CRUDs
                 decimal lon = Convert.ToDecimal(Prompt.ShowDialog("Longitud:", "Nueva ubicación"));
                 DateTime fecha = DateTime.Now;
 
-                UbicacionRepartidor nueva = new UbicacionRepartidor
+                var nueva = new UbicacionRepartidorApiModel
                 {
                     IdRepartidor = idRep,
                     Latitud = lat,
@@ -81,10 +76,15 @@ namespace SmartWarehouseDesktop.CRUDs
                     FechaHora = fecha
                 };
 
-                if (ubicacionDAO.InsertarUbicacion(nueva))
+                bool success = await _ubicacionService.Create(nueva);
+                if (success)
                 {
                     MessageBox.Show("Ubicación registrada correctamente.");
-                    CargarUbicaciones();
+                    await CargarUbicacionesAsync();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo registrar la ubicación.");
                 }
             }
             catch
@@ -93,19 +93,24 @@ namespace SmartWarehouseDesktop.CRUDs
             }
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private async Task btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvUbicaciones.CurrentRow == null) return;
 
-            UbicacionRepartidor u = (UbicacionRepartidor)dgvUbicaciones.CurrentRow.DataBoundItem;
-
+            var u = (UbicacionRepartidorApiModel)dgvUbicaciones.CurrentRow.DataBoundItem;
+           
             var confirm = MessageBox.Show($"¿Eliminar ubicación #{u.IdUbicacion}?", "Confirmar", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
-                if (ubicacionDAO.EliminarUbicacion(u.IdUbicacion))
+                bool success = await _ubicacionService.Delete(u.IdUbicacion);
+                if (success)
                 {
                     MessageBox.Show("Ubicación eliminada correctamente.");
-                    CargarUbicaciones();
+                    await CargarUbicacionesAsync();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar la ubicación.");
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace SmartWarehouseDesktop.ApiModels
         public static HttpClient GetClient()
         {
             var client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5294/");
+            client.BaseAddress = new Uri("https://cogent-anderson-alphamerically.ngrok-free.dev");
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Session.Token);
 

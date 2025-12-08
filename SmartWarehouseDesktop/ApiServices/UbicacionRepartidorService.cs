@@ -63,5 +63,19 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
 
+        // UPDATE
+        public async Task<bool> Update(UbicacionRepartidorApiModel model)
+        {
+            if (model == null || model.IdUbicacion <= 0)
+                throw new ArgumentException("El modelo debe tener un IdUbicacion válido.");
+
+            string json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _http.PutAsync($"api/Ubicaciones/{model.IdUbicacion}", content);
+            return response.IsSuccessStatusCode;
+        }
+
+
     }
 }
