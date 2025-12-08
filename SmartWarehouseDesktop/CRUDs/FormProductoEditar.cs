@@ -8,7 +8,7 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormProductoEditar : Form
     {
-        private readonly ProductService _service = new ProductService();
+        private readonly ProductoService _service = new ProductoService();
         private readonly ProductApiModel producto; // null = agregar
 
         public FormProductoEditar(ProductApiModel producto = null)

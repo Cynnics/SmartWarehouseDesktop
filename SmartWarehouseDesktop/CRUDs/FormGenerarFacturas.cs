@@ -10,7 +10,7 @@ namespace SmartWarehouseDesktop.CRUDs
     {
         private readonly FacturaService _facturaService = new FacturaService();
         private readonly PedidoService _pedidoService = new PedidoService();
-
+        private readonly UserService _userService = new UserService();
         public FormGenerarFactura()
         {
             InitializeComponent();
@@ -22,10 +22,6 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarFormulario(this);
             UIHelper.EstilizarLabel(lblTitulo, true);
             UIHelper.EstilizarLabel(lblPedido);
-            UIHelper.EstilizarLabel(lblFecha);
-            UIHelper.EstilizarLabel(lblSubtotal);
-            UIHelper.EstilizarLabel(lblIVA);
-            UIHelper.EstilizarLabel(lblTotal);
             UIHelper.EstilizarBoton(btnGenerar);
             UIHelper.EstilizarBoton(btnCancelar);
             UIHelper.EstiloHover(btnGenerar);
@@ -36,9 +32,6 @@ namespace SmartWarehouseDesktop.CRUDs
             cmbPedidos.DataSource = pedidos;
             cmbPedidos.DisplayMember = "IdPedido";
             cmbPedidos.ValueMember = "IdPedido";
-
-            dtpFecha.Value = DateTime.Now;
-            nudIVA.Value = 21;
 
         }
 
@@ -53,13 +46,16 @@ namespace SmartWarehouseDesktop.CRUDs
 
             try
             {
+
+                var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
+                var totales = await _pedidoService.GetTotales(pedidoSeleccionado.IdPedido);
                 // 1️⃣ Crear la factura en la base de datos
                 var factura = new FacturaApiModel
                 {
-                    IdPedido = (int)cmbPedidos.SelectedValue,
-                    Subtotal = nudSubtotal.Value,
-                    IVA = nudIVA.Value,
-                    Total = nudTotal.Value,
+                    IdPedido = pedidoSeleccionado.IdPedido,
+                    Subtotal = totales.Subtotal,
+                    IVA = 21,
+                    Total = totales.Total,
                     FechaEmision = DateTime.Now
                 };
 
@@ -83,7 +79,8 @@ namespace SmartWarehouseDesktop.CRUDs
 
                 // 3️⃣ Generar el PDF de la factura
                 var pdfGenerator = new PdfGenerator();
-                string rutaPdf = await pdfGenerator.GenerarFacturaPdf(factura, pedido);
+                var cliente = await _userService.GetById(pedido.IdCliente);
+                string rutaPdf = await pdfGenerator.GenerarFacturaPdf(factura, pedido, cliente);
 
                 // 4️⃣ Abrir automáticamente el PDF
                 PdfGenerator.AbrirPdf(rutaPdf);
@@ -102,25 +99,6 @@ namespace SmartWarehouseDesktop.CRUDs
             Close();
         }
 
-        private async void cmbPedidos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var pedido = cmbPedidos.SelectedItem as PedidoApiModel;
-            if (pedido == null)
-                return;
-
-            try
-            {
-                var totales = await _pedidoService.GetTotales(pedido.IdPedido);
-
-                nudSubtotal.Value = totales.Subtotal;
-                nudIVA.Value = totales.IVA;
-                nudTotal.Value = totales.Total;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("No se pudieron cargar los totales: " + ex.Message);
-            }
-        }
 
 
     }

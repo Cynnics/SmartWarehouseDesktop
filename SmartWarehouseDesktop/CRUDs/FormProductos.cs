@@ -9,14 +9,14 @@ namespace SmartWarehouseDesktop.CRUDs
 {
     public partial class FormProductos : Form
     {
-        private ProductService _productService;
+        private ProductoService _productService;
 
         private readonly BindingSource _bs = new BindingSource();
 
         public FormProductos()
         {
             InitializeComponent();
-            _productService = new ProductService();
+            _productService = new ProductoService();
         }
 
         private async void FormProductos_Load(object sender, EventArgs e)

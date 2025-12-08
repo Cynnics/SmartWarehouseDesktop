@@ -1,0 +1,101 @@
+﻿using SmartWarehouseDesktop.ApiModels;
+using SmartWarehouseDesktop.ApiServices;
+using SmartWarehouseDesktop.Utils;  
+using System;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace SmartWarehouseDesktop.CRUDs
+{
+    public partial class FormGenerarAlbaran : Form
+    {
+
+        private readonly AlbaranService _service = new AlbaranService();
+        private readonly PedidoService _pedidoService = new PedidoService();
+        private readonly PdfGenerator _pdfGenerator = new PdfGenerator();
+
+
+        public FormGenerarAlbaran()
+        {
+            InitializeComponent();
+          
+        }
+            
+        private async void FormAlbaranEditar_Load(object sender, EventArgs e)
+        {
+            // Estilos
+            UIHelper.EstilizarFormulario(this);
+            UIHelper.EstilizarLabel(lblTitulo, true);
+            UIHelper.EstilizarLabel(lblPedido);
+          
+            UIHelper.EstilizarComboBox(cmbPedidos);
+
+            UIHelper.EstilizarBoton(btnGenerar);
+            UIHelper.EstiloHover(btnGenerar);
+            UIHelper.EstilizarBoton(btnCancelar);
+            UIHelper.EstiloHover(btnCancelar);
+
+            // Solo pedidos con estado "entregado"
+            var pedidos = await _pedidoService.GetAll();
+            var pedidosEntregados = pedidos.Where(p => p.Estado == "entregado").ToList();
+
+            cmbPedidos.DataSource = pedidosEntregados;
+            cmbPedidos.DisplayMember = "IdPedido";
+            cmbPedidos.ValueMember = "IdPedido";
+        }
+
+
+        private async void btnGenerar_Click(object sender, EventArgs e)
+        {
+            if (cmbPedidos.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un pedido.");
+                return;
+            }
+
+            var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
+
+            // 1️⃣ Crear albarán en la BBDD
+            var albaran = new AlbaranApiModel
+            {
+                IdPedido = pedidoSeleccionado.IdPedido,
+                FechaGeneracion = DateTime.Now,
+                EntregadoPor = pedidoSeleccionado.IdRepartidor,
+                RecibidoPor = "",  // Se puede actualizar después
+                Estado = "generado"
+            };
+
+            bool ok = await _service.Create(albaran);
+
+            if (!ok)
+            {
+                MessageBox.Show("Error al guardar el albarán.");
+                return;
+            }
+
+            // 2️⃣ Generar PDF del albarán
+            try
+            {
+                string rutaPdf = await _pdfGenerator.GenerarAlbaranPdf(pedidoSeleccionado);
+                PdfGenerator.AbrirPdf(rutaPdf);
+                MessageBox.Show("Albarán generado correctamente.");
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar PDF: " + ex.Message);
+            }
+        }
+
+
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+    }
+}

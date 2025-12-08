@@ -9,8 +9,8 @@
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string Rol { get; set; }
-        // ❗ La API devuelve también Password, pero jamás
-        // debemos manejar contraseñas en escritorio.
-        // Si algún día haces "cambiar contraseña", será otro endpoint.
+        public string Telefono { get; set; }
+        public string DireccionFacturacion { get; set; }
+        public string Nif { get; set; }
     }
 }

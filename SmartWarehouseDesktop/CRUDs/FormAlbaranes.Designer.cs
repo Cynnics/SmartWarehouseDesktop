@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
+            this.btnGenerar = new System.Windows.Forms.Button();
             this.btnCargar = new System.Windows.Forms.Button();
             this.dgvAlbaranes = new System.Windows.Forms.DataGridView();
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.pnlContent = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.pnlContent = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlbaranes)).BeginInit();
             this.pnlTop.SuspendLayout();
             this.pnlContent.SuspendLayout();
@@ -50,15 +51,15 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
-            // btnAgregar
+            // btnGenerar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(98, 30);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(150, 40);
-            this.btnAgregar.TabIndex = 28;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            this.btnGenerar.Location = new System.Drawing.Point(98, 30);
+            this.btnGenerar.Name = "btnGenerar";
+            this.btnGenerar.Size = new System.Drawing.Size(150, 40);
+            this.btnGenerar.TabIndex = 28;
+            this.btnGenerar.Text = "Generar";
+            this.btnGenerar.UseVisualStyleBackColor = true;
+            this.btnGenerar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnCargar
             // 
@@ -72,16 +73,8 @@
             // 
             // dgvAlbaranes
             // 
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvAlbaranes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAlbaranes.BackgroundColor = System.Drawing.Color.White;
-            this.dgvAlbaranes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvAlbaranes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAlbaranes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAlbaranes.Location = new System.Drawing.Point(0, 0);
-            this.dgvAlbaranes.Name = "dgvAlbaranes";
-            this.dgvAlbaranes.Size = new System.Drawing.Size(844, 481);
-            this.dgvAlbaranes.TabIndex = 26;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(39)))), ((int)(((byte)(71)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,11 +82,18 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAlbaranes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAlbaranes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAlbaranes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAlbaranes.Location = new System.Drawing.Point(0, 0);
+            this.dgvAlbaranes.Name = "dgvAlbaranes";
+            this.dgvAlbaranes.Size = new System.Drawing.Size(844, 481);
+            this.dgvAlbaranes.TabIndex = 26;
             // 
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.lblTitulo);
-            this.pnlTop.Controls.Add(this.btnAgregar);
+            this.pnlTop.Controls.Add(this.btnGenerar);
             this.pnlTop.Controls.Add(this.btnCargar);
             this.pnlTop.Controls.Add(this.btnEliminar);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -101,15 +101,6 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(844, 80);
             this.pnlTop.TabIndex = 30;
-            // 
-            // pnlContent
-            // 
-            this.pnlContent.Controls.Add(this.dgvAlbaranes);
-            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(20, 100);
-            this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(844, 481);
-            this.pnlContent.TabIndex = 31;
             // 
             // lblTitulo
             // 
@@ -123,6 +114,15 @@
             this.lblTitulo.TabIndex = 30;
             this.lblTitulo.Text = "Gestor de Albaran";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // pnlContent
+            // 
+            this.pnlContent.Controls.Add(this.dgvAlbaranes);
+            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Location = new System.Drawing.Point(20, 100);
+            this.pnlContent.Name = "pnlContent";
+            this.pnlContent.Size = new System.Drawing.Size(844, 481);
+            this.pnlContent.TabIndex = 31;
             // 
             // FormAlbaranes
             // 
@@ -147,7 +147,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.DataGridView dgvAlbaranes;
         private System.Windows.Forms.Panel pnlTop;

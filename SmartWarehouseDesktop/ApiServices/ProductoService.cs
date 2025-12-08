@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SmartWarehouseDesktop.ApiServices
 {
-    public class ProductService
+    public class ProductoService
     {
         private readonly HttpClient _http;
 
-        public ProductService()
+        public ProductoService()
         {
             _http = new HttpClient();
             _http.BaseAddress = new Uri(ApiConfig.BaseUrl);
@@ -86,6 +86,15 @@ namespace SmartWarehouseDesktop.ApiServices
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<ProductApiModel> GetById(int id)
+        {
+            var response = await _http.GetAsync($"api/Productos/{id}");
+                      
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ProductApiModel>(json);
+        }
+
 
     }
 }

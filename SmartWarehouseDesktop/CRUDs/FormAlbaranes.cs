@@ -21,8 +21,8 @@ namespace SmartWarehouseDesktop.CRUDs
 
             dgvAlbaranes.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
-            UIHelper.EstilizarBoton(btnAgregar);
-            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnGenerar);
+            UIHelper.EstiloHover(btnGenerar);
             UIHelper.EstilizarBoton(btnCargar);
             UIHelper.EstiloHover(btnCargar);
             UIHelper.EstilizarBoton(btnEliminar);
@@ -42,7 +42,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            var frm = new FormAlbaranEditar(null);
+            var frm = new FormGenerarAlbaran();
 
             if (frm.ShowDialog() == DialogResult.OK)
                 await CargarAlbaranes();

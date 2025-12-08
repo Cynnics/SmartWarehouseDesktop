@@ -93,7 +93,7 @@ namespace SmartWarehouseDesktop.CRUDs
             }
         }
 
-        private async Task btnEliminar_Click(object sender, EventArgs e)
+        private async void btnEliminar_Click(object sender, EventArgs e)
         {
             if (dgvUbicaciones.CurrentRow == null) return;
 
