@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop.Utils
 {
@@ -27,7 +28,7 @@ namespace SmartWarehouseDesktop.Utils
         /// <summary>
         /// Genera un PDF de factura y lo guarda en el directorio especificado
         /// </summary>
-        public async System.Threading.Tasks.Task<string> GenerarFacturaPdf(
+        public async Task<string> GenerarFacturaPdf(
             FacturaApiModel factura,
             PedidoApiModel pedido,
             string rutaDestino = null)
@@ -100,8 +101,8 @@ namespace SmartWarehouseDesktop.Utils
             Font fuenteSubtitulo = FontFactory.GetFont(FontFactory.HELVETICA, 10, BaseColor.GRAY);
             celdaEmpresa.AddElement(new Paragraph("Sistema de Gestión de Entregas", fuenteSubtitulo));
             celdaEmpresa.AddElement(new Paragraph("CIF: B-12345678", fuenteSubtitulo));
-            celdaEmpresa.AddElement(new Paragraph("Calle Gran Vía, 28, Madrid", fuenteSubtitulo));
-            celdaEmpresa.AddElement(new Paragraph("Tel: 900 123 456", fuenteSubtitulo));
+            celdaEmpresa.AddElement(new Paragraph("C/ de Abizanda, 70, Hortaleza,", fuenteSubtitulo));
+            celdaEmpresa.AddElement(new Paragraph("Tel: 913 82 19 05", fuenteSubtitulo));
             celdaEmpresa.AddElement(new Paragraph("info@smartwarehouse.com", fuenteSubtitulo));
 
             tabla.AddCell(celdaEmpresa);
@@ -136,8 +137,8 @@ namespace SmartWarehouseDesktop.Utils
         private async Task AgregarDatosCliente(Document doc, PedidoApiModel pedido)
         {
             // Obtener datos del cliente
+            
             var cliente = await _userService.GetById(pedido.IdCliente);
-
             Font fuenteTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, ColorSecundario);
             Paragraph titulo = new Paragraph("DATOS DEL CLIENTE", fuenteTitulo);
             titulo.SpacingBefore = 10;
@@ -297,14 +298,6 @@ namespace SmartWarehouseDesktop.Utils
             doc.Add(new Paragraph(" "));
 
             Font fuentePie = FontFactory.GetFont(FontFactory.HELVETICA, 8, BaseColor.GRAY);
-
-            // Condiciones de pago
-            Paragraph condiciones = new Paragraph(
-                "CONDICIONES DE PAGO: Pago contra entrega. Factura generada automáticamente por el sistema SmartWarehouse.",
-                fuentePie
-            );
-            condiciones.Alignment = Element.ALIGN_JUSTIFIED;
-            doc.Add(condiciones);
 
             doc.Add(new Paragraph(" "));
 

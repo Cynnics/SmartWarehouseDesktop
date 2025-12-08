@@ -81,6 +81,15 @@ namespace SmartWarehouseDesktop.ApiServices
 
             return response.IsSuccessStatusCode;
         }
+        public async Task<PedidoApiModel> GetById(int idPedido)
+        {
+            var response = await _http.GetAsync($"api/Pedidos/{idPedido}");
+            if (!response.IsSuccessStatusCode) return null;
+
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<PedidoApiModel>(json);
+        }
+
 
 
 
