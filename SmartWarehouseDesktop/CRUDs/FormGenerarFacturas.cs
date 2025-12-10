@@ -11,6 +11,7 @@ namespace SmartWarehouseDesktop.CRUDs
         private readonly FacturaService _facturaService = new FacturaService();
         private readonly PedidoService _pedidoService = new PedidoService();
         private readonly UserService _userService = new UserService();
+        
         public FormGenerarFactura()
         {
             InitializeComponent();
@@ -49,12 +50,15 @@ namespace SmartWarehouseDesktop.CRUDs
 
                 var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
                 var totales = await _pedidoService.GetTotales(pedidoSeleccionado.IdPedido);
+
+                
+
                 // 1️⃣ Crear la factura en la base de datos
                 var factura = new FacturaApiModel
                 {
                     IdPedido = pedidoSeleccionado.IdPedido,
                     Subtotal = totales.Subtotal,
-                    IVA = 21,
+                    IVA = totales.IVA,
                     Total = totales.Total,
                     FechaEmision = DateTime.Now
                 };

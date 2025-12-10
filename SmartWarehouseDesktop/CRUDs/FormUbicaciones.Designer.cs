@@ -30,9 +30,6 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUbicaciones));
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnCargar = new System.Windows.Forms.Button();
             this.dgvUbicaciones = new System.Windows.Forms.DataGridView();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -40,36 +37,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUbicaciones)).BeginInit();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.Location = new System.Drawing.Point(594, 30);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(150, 40);
-            this.btnEliminar.TabIndex = 27;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnAgregar
-            // 
-            this.btnAgregar.Location = new System.Drawing.Point(98, 30);
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(150, 40);
-            this.btnAgregar.TabIndex = 25;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // btnCargar
-            // 
-            this.btnCargar.Location = new System.Drawing.Point(346, 30);
-            this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(150, 40);
-            this.btnCargar.TabIndex = 24;
-            this.btnCargar.Text = "Cargar";
-            this.btnCargar.UseVisualStyleBackColor = true;
-            this.btnCargar.Click += new System.EventHandler(this.btnCargar_ClickAsync);
             // 
             // dgvUbicaciones
             // 
@@ -93,9 +60,6 @@
             // pnlTop
             // 
             this.pnlTop.Controls.Add(this.lblTitulo);
-            this.pnlTop.Controls.Add(this.btnEliminar);
-            this.pnlTop.Controls.Add(this.btnCargar);
-            this.pnlTop.Controls.Add(this.btnAgregar);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(20, 20);
             this.pnlTop.Name = "pnlTop";
@@ -145,9 +109,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.DataGridView dgvUbicaciones;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlContent;

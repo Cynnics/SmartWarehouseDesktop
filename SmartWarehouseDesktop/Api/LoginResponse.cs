@@ -6,7 +6,7 @@
     {
         public string Message { get; set; }
         public string Token { get; set; }
-        public UsuarioModel Usuario { get; set; }
+        public UserApiModel Usuario { get; set; }
     }
 
 }

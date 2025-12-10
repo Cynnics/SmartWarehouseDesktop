@@ -33,12 +33,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
             dgvUbicaciones.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
-            UIHelper.EstilizarBoton(btnAgregar);
-            UIHelper.EstiloHover(btnAgregar);
-            UIHelper.EstilizarBoton(btnCargar);
-            UIHelper.EstiloHover(btnCargar);
-            UIHelper.EstilizarBoton(btnEliminar);
-            UIHelper.EstiloHover(btnEliminar);
+           
         }
 
         private async Task CargarUbicacionesAsync()
@@ -59,60 +54,6 @@ namespace SmartWarehouseDesktop.CRUDs
             await CargarUbicacionesAsync();
         }
 
-        private async void btnAgregar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int idRep = Convert.ToInt32(Prompt.ShowDialog("ID del repartidor:", "Nueva ubicación"));
-                decimal lat = Convert.ToDecimal(Prompt.ShowDialog("Latitud:", "Nueva ubicación"));
-                decimal lon = Convert.ToDecimal(Prompt.ShowDialog("Longitud:", "Nueva ubicación"));
-                DateTime fecha = DateTime.Now;
-
-                var nueva = new UbicacionRepartidorApiModel
-                {
-                    IdRepartidor = idRep,
-                    Latitud = lat,
-                    Longitud = lon,
-                    FechaHora = fecha
-                };
-
-                bool success = await _ubicacionService.Create(nueva);
-                if (success)
-                {
-                    MessageBox.Show("Ubicación registrada correctamente.");
-                    await CargarUbicacionesAsync();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo registrar la ubicación.");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error al agregar ubicación.");
-            }
-        }
-
-        private async void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (dgvUbicaciones.CurrentRow == null) return;
-
-            var u = (UbicacionRepartidorApiModel)dgvUbicaciones.CurrentRow.DataBoundItem;
-           
-            var confirm = MessageBox.Show($"¿Eliminar ubicación #{u.IdUbicacion}?", "Confirmar", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                bool success = await _ubicacionService.Delete(u.IdUbicacion);
-                if (success)
-                {
-                    MessageBox.Show("Ubicación eliminada correctamente.");
-                    await CargarUbicacionesAsync();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo eliminar la ubicación.");
-                }
-            }
-        }
+       
     }
 }

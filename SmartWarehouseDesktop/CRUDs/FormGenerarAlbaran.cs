@@ -14,6 +14,7 @@ namespace SmartWarehouseDesktop.CRUDs
         private readonly AlbaranService _service = new AlbaranService();
         private readonly PedidoService _pedidoService = new PedidoService();
         private readonly PdfGenerator _pdfGenerator = new PdfGenerator();
+        private readonly AlbaranService _albaranService = new AlbaranService();
 
 
         public FormGenerarAlbaran()
@@ -56,12 +57,19 @@ namespace SmartWarehouseDesktop.CRUDs
 
             var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
 
+            bool existeAlbaran = await _albaranService.ExisteAlbaran(pedidoSeleccionado.IdPedido);
+            if (existeAlbaran)
+            {
+                MessageBox.Show("Ya existe un albarán para este pedido.");
+                return;
+            }
+
             // 1️⃣ Crear albarán en la BBDD
             var albaran = new AlbaranApiModel
             {
                 IdPedido = pedidoSeleccionado.IdPedido,
                 FechaGeneracion = DateTime.Now,
-                EntregadoPor = pedidoSeleccionado.IdRepartidor,
+                EntregadoPor = (int)pedidoSeleccionado.IdRepartidor,
                 RecibidoPor = "",  // Se puede actualizar después
                 Estado = "generado"
             };

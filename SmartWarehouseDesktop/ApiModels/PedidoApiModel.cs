@@ -8,7 +8,7 @@ namespace SmartWarehouseDesktop.ApiModels
         public int IdPedido { get; set; }
         public DateTime FechaPedido{ get; set; }
         public int IdCliente { get; set; }
-        public int IdRepartidor { get; set; }     // opcional, si tu API lo devuelve
+        public int? IdRepartidor { get; set; }     // opcional, si tu API lo devuelve
         public string Estado { get; set; }          // pendiente, preparado, en_reparto, entregado...
         public DateTime? FechaEntrega { get; set; }
         public string DireccionEntrega { get; set; }

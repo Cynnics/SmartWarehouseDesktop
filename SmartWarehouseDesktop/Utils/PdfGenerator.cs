@@ -417,7 +417,7 @@ namespace SmartWarehouseDesktop.Utils
             // Información del repartidor
             if (pedido.IdRepartidor != 0)
             {
-                var repartidor = await _userService.GetById(pedido.IdRepartidor);
+                var repartidor = await _userService.GetById((int)pedido.IdRepartidor);
                 if (repartidor != null)
                 {
                     AgregarFilaDatos(tabla, "Entregado por:", repartidor.Nombre, fuenteLabel, fuenteValor);

@@ -126,7 +126,6 @@
     <Compile Include="ApiServices\UbicacionRepartidorService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="Api\ApiConfig.cs" />
-    <Compile Include="Api\ApiErrorResponse.cs" />
     <Compile Include="Api\ApiClient.cs" />
     <Compile Include="Api\LoginRequest.cs" />
     <Compile Include="Api\LoginResponse.cs" />
@@ -212,12 +211,6 @@
     <Compile Include="CRUDs\FormUbicaciones.Designer.cs">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="CRUDs\FormUbicacionesEditar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CRUDs\FormUbicacionesEditar.Designer.cs">
-      <DependentUpon>FormUbicacionesEditar.cs</DependentUpon>
-    </Compile>
     <Compile Include="CRUDs\FormUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,7 +223,6 @@
     <Compile Include="CRUDs\FormUsuariosEditar.Designer.cs">
       <DependentUpon>FormUsuariosEditar.cs</DependentUpon>
     </Compile>
-    <Compile Include="CRUDs\Prompt.cs" />
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,9 +279,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUbicaciones.resx">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CRUDs\FormUbicacionesEditar.resx">
-      <DependentUpon>FormUbicacionesEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUsuarios.resx">
       <DependentUpon>FormUsuarios.cs</DependentUpon>

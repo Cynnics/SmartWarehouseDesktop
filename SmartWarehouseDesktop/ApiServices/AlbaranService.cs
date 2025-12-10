@@ -70,5 +70,29 @@ namespace SmartWarehouseDesktop.ApiServices
             var response = await _http.DeleteAsync($"api/Albaranes/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        // EXISTE ALBARÁN
+        public async Task<bool> ExisteAlbaran(int idPedido)
+        {
+            var response = await _http.GetAsync($"api/Albaranes/pedido/{idPedido}");
+
+            if (!response.IsSuccessStatusCode)
+                return false; // por seguridad, si hay error asumimos que no existe
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            // Si el JSON está vacío o es null, no existe
+            if (string.IsNullOrWhiteSpace(json) || json == "null")
+                return false;
+
+            // Deserializamos para comprobar el IdPedido
+            var albaran = JsonConvert.DeserializeObject<AlbaranApiModel>(json);
+            return albaran != null && albaran.IdPedido == idPedido;
+        }
+
+
+
+
+
     }
 }

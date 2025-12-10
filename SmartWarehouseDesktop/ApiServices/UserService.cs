@@ -73,5 +73,7 @@ namespace SmartWarehouseDesktop.ApiServices
             var response = await _http.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
+
+     
     }
 }

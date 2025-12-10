@@ -27,7 +27,7 @@ namespace SmartWarehouseDesktop.CRUDs
                 dtpFechaPedido.Value = _pedido.FechaPedido;
                 cmbEstado.SelectedItem = _pedido.Estado;
                 nudCliente.Value = _pedido.IdCliente;
-                nudRepartidor.Value = _pedido.IdRepartidor;
+                nudRepartidor.Value = (int)_pedido.IdRepartidor;
             }
             else
             {
