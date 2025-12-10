@@ -23,12 +23,10 @@ namespace SmartWarehouseDesktop.CRUDs
             // estilos tuyos
             dgvRutas.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
-            UIHelper.EstilizarBoton(btnAgregar);
-            UIHelper.EstiloHover(btnAgregar);
+            UIHelper.EstilizarBoton(btnAsignar);
+            UIHelper.EstiloHover(btnAsignar);
             UIHelper.EstilizarBoton(btnCargar);
             UIHelper.EstiloHover(btnCargar);
-            UIHelper.EstilizarBoton(btnActualizar);
-            UIHelper.EstiloHover(btnActualizar);
             UIHelper.EstilizarBoton(btnEliminar);
             UIHelper.EstiloHover(btnEliminar);
             UIHelper.EstilizarBoton(btnForm);
@@ -72,35 +70,13 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            using (var frm = new FormRutasEntregaEditar())
+            using (var frm = new FormRutasAsignar())
             {
                 if (frm.ShowDialog(this) == DialogResult.OK)
                     await CargarRutas();
             }
         }
 
-
-        private async void btnActualizar_Click(object sender, EventArgs e)
-        {
-            if (dgvRutas.CurrentRow == null)
-            {
-                MessageBox.Show("Selecciona una ruta.", "Aviso");
-                return;
-            }
-
-            var ruta = dgvRutas.CurrentRow.DataBoundItem as RutaEntregaApiModel;
-            if (ruta == null)
-            {
-                MessageBox.Show("Error: elemento inválido.");
-                return;
-            }
-
-            using (var frm = new FormRutasEntregaEditar(ruta))
-            {
-                if (frm.ShowDialog(this) == DialogResult.OK)
-                    await CargarRutas();
-            }
-        }
 
 
         private async void btnEliminar_Click(object sender, EventArgs e)

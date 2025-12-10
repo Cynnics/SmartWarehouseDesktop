@@ -192,17 +192,17 @@
     <Compile Include="CRUDs\FormProductos.Designer.cs">
       <DependentUpon>FormProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="CRUDs\FormRutasAsignar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDs\FormRutasAsignar.Designer.cs">
+      <DependentUpon>FormRutasAsignar.cs</DependentUpon>
+    </Compile>
     <Compile Include="CRUDs\FormRutasEntrega.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CRUDs\FormRutasEntrega.Designer.cs">
       <DependentUpon>FormRutasEntrega.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CRUDs\FormRutasEntregaEditar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CRUDs\FormRutasEntregaEditar.Designer.cs">
-      <DependentUpon>FormRutasEntregaEditar.cs</DependentUpon>
     </Compile>
     <Compile Include="CRUDs\FormUbicaciones.cs">
       <SubType>Form</SubType>
@@ -270,11 +270,11 @@
     <EmbeddedResource Include="CRUDs\FormProductos.resx">
       <DependentUpon>FormProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CRUDs\FormRutasAsignar.resx">
+      <DependentUpon>FormRutasAsignar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormRutasEntrega.resx">
       <DependentUpon>FormRutasEntrega.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CRUDs\FormRutasEntregaEditar.resx">
-      <DependentUpon>FormRutasEntregaEditar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CRUDs\FormUbicaciones.resx">
       <DependentUpon>FormUbicaciones.cs</DependentUpon>

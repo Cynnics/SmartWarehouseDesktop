@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SmartWarehouseDesktop.ApiServices
 {
@@ -81,6 +82,24 @@ namespace SmartWarehouseDesktop.ApiServices
 
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<bool> UpdateRepartidor(int idPedido, int idRepartidor, string estado)
+        {
+            // Crear objeto mínimo
+            var payload = new
+            {
+                IdRepartidor = idRepartidor,
+                Estado = estado
+            };
+
+            string json = JsonConvert.SerializeObject(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            MessageBox.Show(""+idRepartidor + idPedido);
+            // Llamar al nuevo endpoint
+            var response = await _http.PutAsync($"api/Pedidos/PutPedidoRepartidor/{idPedido}", content);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<PedidoApiModel> GetById(int idPedido)
         {
             var response = await _http.GetAsync($"api/Pedidos/{idPedido}");
