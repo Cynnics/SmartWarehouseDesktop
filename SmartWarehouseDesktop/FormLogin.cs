@@ -39,7 +39,7 @@ namespace SmartWarehouseDesktop
 
                 using (var client = new HttpClient())
                 {
-                    string url = "http://localhost:5294/api/Usuarios/login";
+                    string url = "https://cogent-anderson-alphamerically.ngrok-free.dev/api/Usuarios/login";
 
                     var response = await client.PostAsync(url, content);
 

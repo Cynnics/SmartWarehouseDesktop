@@ -1,8 +1,22 @@
-﻿namespace SmartWarehouseDesktop.ApiModels
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
+namespace SmartWarehouseDesktop.ApiModels
 {
     public static class ApiConfig
     {
         // Pon aquí la URL REAL de tu API
-        public const string BaseUrl = "http://localhost:5294/";
+        public const string BaseUrl = "https://cogent-anderson-alphamerically.ngrok-free.dev";
+
+        public static HttpClient GetClient()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://cogent-anderson-alphamerically.ngrok-free.dev");
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", Session.Token);
+
+            return client;
+        }
     }
 }

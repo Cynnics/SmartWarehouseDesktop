@@ -37,10 +37,12 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarBoton(btnCancelar);
             UIHelper.EstiloHover(btnCancelar);
 
-            // Solo pedidos con estado "entregado"
             var pedidos = await _pedidoService.GetAll();
-            var pedidosEntregados = pedidos.Where(p => p.Estado == "entregado").ToList();
+            
+            //var pedidosPendiente = pedidos.Where(p => p.Estado == "pendiente").ToList();
+            //cmbPedidos.DataSource = pedidosPendiente;
 
+            var pedidosEntregados = pedidos.Where(p => p.Estado == "entregados").ToList();
             cmbPedidos.DataSource = pedidosEntregados;
             cmbPedidos.DisplayMember = "IdPedido";
             cmbPedidos.ValueMember = "IdPedido";

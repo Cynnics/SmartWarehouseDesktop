@@ -61,5 +61,16 @@ namespace SmartWarehouseDesktop.ApiServices
             var response = await _http.DeleteAsync($"api/Facturas/{id}");
             return response.IsSuccessStatusCode;
         }
+
+
+        // 🔹 Comprobar si ya existe factura para un pedido
+        public async Task<bool> ExisteFactura(int idPedido)
+        {
+            var facturas = await GetByPedido(idPedido);
+
+            // Devuelve true si hay al menos una factura para este pedido
+            return facturas != null && facturas.Count > 0;
+        }
+
     }
 }

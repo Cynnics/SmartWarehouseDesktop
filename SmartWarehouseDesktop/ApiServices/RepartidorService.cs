@@ -13,7 +13,7 @@ namespace SmartWarehouseDesktop.ApiServices
 
         public RepartidorService()
         {
-            _http = ApiClient.GetClient();
+            _http = ApiConfig.GetClient();
         }
 
         public async Task<List<RepartidorApiModel>> GetAll()

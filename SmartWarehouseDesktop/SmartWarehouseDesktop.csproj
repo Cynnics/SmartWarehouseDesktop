@@ -126,7 +126,6 @@
     <Compile Include="ApiServices\UbicacionRepartidorService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
     <Compile Include="Api\ApiConfig.cs" />
-    <Compile Include="Api\ApiClient.cs" />
     <Compile Include="Api\LoginRequest.cs" />
     <Compile Include="Api\LoginResponse.cs" />
     <Compile Include="ApiModels\ProductApiModel.cs" />

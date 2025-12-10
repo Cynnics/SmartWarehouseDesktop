@@ -51,7 +51,13 @@ namespace SmartWarehouseDesktop.CRUDs
                 var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
                 var totales = await _pedidoService.GetTotales(pedidoSeleccionado.IdPedido);
 
-                
+                bool existeFactura = await _facturaService.ExisteFactura(pedidoSeleccionado.IdPedido);
+                if (existeFactura)
+                {
+                    MessageBox.Show("Ya existe una factura para este pedido.");
+                    return;
+                }
+
 
                 // 1️⃣ Crear la factura en la base de datos
                 var factura = new FacturaApiModel
