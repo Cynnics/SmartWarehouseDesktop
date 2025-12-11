@@ -130,7 +130,6 @@
     <Compile Include="Api\LoginResponse.cs" />
     <Compile Include="ApiModels\ProductApiModel.cs" />
     <Compile Include="Api\Session.cs" />
-    <Compile Include="ApiModels\UsuarioModel.cs" />
     <Compile Include="ApiServices\ProductoService.cs" />
     <Compile Include="CRUDs\FormGenerarAlbaran.cs">
       <SubType>Form</SubType>

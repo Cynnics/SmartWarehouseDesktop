@@ -117,5 +117,25 @@ namespace SmartWarehouseDesktop.ApiServices
             if (!response.IsSuccessStatusCode) return null;
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
+
+        public async Task<int?> CreateAndReturnId(RutaEntregaApiModel model)
+        {
+            string json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _http.PostAsync("api/Rutas", content);
+
+            string body = await response.Content.ReadAsStringAsync();
+            System.Diagnostics.Debug.WriteLine("Create Ruta Status: " + response.StatusCode);
+            System.Diagnostics.Debug.WriteLine("Create Ruta Body: " + body);
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            // Deserializa directamente a tu propio modelo
+            var rutaCreada = JsonConvert.DeserializeObject<RutaEntregaApiModel>(body);
+            return rutaCreada.IdRuta;
+        }
+
     }
 }

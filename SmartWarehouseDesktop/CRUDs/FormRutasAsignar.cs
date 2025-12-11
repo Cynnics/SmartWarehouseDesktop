@@ -10,6 +10,8 @@ namespace SmartWarehouseDesktop.CRUDs
     {
         private readonly PedidoService _pedidoService = new PedidoService();
         private readonly UserService _usuarioService = new UserService();
+        private readonly RutaEntregaService _rutaEntregaService = new RutaEntregaService();
+        private readonly RutaPedidoService _rutaPedidoService = new RutaPedidoService();
 
         public FormRutasAsignar()
         {
@@ -56,38 +58,47 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void btnAsignar_Click(object sender, EventArgs e)
         {
-            if (cmbPedidos.SelectedItem == null)
+            if (cmbPedidos.SelectedItem == null || cmbRepartidor.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione un pedido.");
+                MessageBox.Show("Debe seleccionar pedido y repartidor.");
                 return;
             }
 
-            if (cmbRepartidor.SelectedItem == null)
+            int idPedido = (int)cmbPedidos.SelectedValue;
+            int idRepartidor = (int)cmbRepartidor.SelectedValue;
+
+            // 1️⃣ Crear la ruta nueva
+            var nuevaRuta = new RutaEntregaApiModel
             {
-                MessageBox.Show("Seleccione un repartidor.");
+                IdRepartidor = idRepartidor,
+                FechaRuta = DateTime.Now,
+                DistanciaEstimadaKm = 0,
+                DuracionEstimadaMin = 0,
+                Estado = "pendiente"
+            };
+
+            int? idRutaCreada = await _rutaEntregaService.CreateAndReturnId(nuevaRuta);
+
+            if (idRutaCreada == null)   
+            {
+                MessageBox.Show("Error al crear la ruta.");
                 return;
             }
 
-            var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
-            var repartidorSeleccionado = (UserApiModel)cmbRepartidor.SelectedItem;
+            // 2️⃣ Asignar pedido a esa ruta
+            bool asignado = await _rutaPedidoService.AsignarPedido(idRutaCreada.Value, idPedido);
 
-            // Llamar al nuevo método que solo actualiza IdRepartidor y Estado
-            bool ok = await _pedidoService.UpdateRepartidor(
-                pedidoSeleccionado.IdPedido,
-                repartidorSeleccionado.IdUsuario,
-                "ruta_asignada"
-            );
-
-            if (!ok)
+            if (!asignado)
             {
-                MessageBox.Show("Error al asignar la ruta.");
+                MessageBox.Show("La ruta se creó pero no se pudo asignar el pedido.");
                 return;
             }
 
-            MessageBox.Show("Ruta asignada correctamente.");
+            MessageBox.Show("Ruta creada y pedido asignado correctamente.");
             this.DialogResult = DialogResult.OK;
             Close();
         }
+
 
 
 
