@@ -42,7 +42,7 @@ namespace SmartWarehouseDesktop.CRUDs
             //var pedidosPendiente = pedidos.Where(p => p.Estado == "pendiente").ToList();
             //cmbPedidos.DataSource = pedidosPendiente;
 
-            var pedidosEntregados = pedidos.Where(p => p.Estado == "entregados").ToList();
+            var pedidosEntregados = pedidos.Where(p => p.Estado == "entregado").ToList();
             cmbPedidos.DataSource = pedidosEntregados;
             cmbPedidos.DisplayMember = "IdPedido";
             cmbPedidos.ValueMember = "IdPedido";

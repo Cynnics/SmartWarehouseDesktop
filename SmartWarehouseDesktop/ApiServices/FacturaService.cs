@@ -35,9 +35,38 @@ namespace SmartWarehouseDesktop.ApiServices
         // 🔹 Obtener facturas por pedido
         public async Task<List<FacturaApiModel>> GetByPedido(int idPedido)
         {
-            var response = await _http.GetAsync($"api/Facturas/pedido/{idPedido}");
-            string json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<FacturaApiModel>>(json);
+            try
+            {
+                var response = await _http.GetAsync($"api/Facturas/pedido/{idPedido}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new List<FacturaApiModel>(); // Devolver lista vacía en lugar de null
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+
+                // Debug: Ver qué estás recibiendo
+                System.Diagnostics.Debug.WriteLine($"JSON Recibido: {json}");
+
+                // Verificar si el JSON está vacío o es inválido
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    return new List<FacturaApiModel>();
+                }
+
+                return JsonConvert.DeserializeObject<List<FacturaApiModel>>(json);
+            }
+            catch (JsonReaderException ex)
+            {
+                MessageBox.Show($"Error al deserializar facturas:\n{ex.Message}\n\nJSON recibido puede ser inválido.");
+                return new List<FacturaApiModel>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener facturas del pedido {idPedido}:\n{ex.Message}");
+                return new List<FacturaApiModel>();
+            }
         }
 
         // 🔹 Crear factura

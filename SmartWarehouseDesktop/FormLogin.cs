@@ -51,6 +51,11 @@ namespace SmartWarehouseDesktop
                         // 🔥 Guardamos la sesión 🔥
                         Session.Token = result.Token;
                         Session.UsuarioActual = result.Usuario;
+                        if (result.Usuario.Rol != "admin" && result.Usuario.Rol != "empleado")
+                        {
+                            lblMensaje.Text = "No tienes permisos para acceder a la aplicación.";
+                            return;
+                        }
 
                         MessageBox.Show(
                             $"Bienvenido {result.Usuario.Nombre} ({result.Usuario.Rol})",
