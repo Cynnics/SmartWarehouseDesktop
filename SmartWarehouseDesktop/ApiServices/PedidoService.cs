@@ -66,11 +66,36 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<PedidoApiModel>>(json);
         }
 
+        // En PedidoService.cs - MEJORAR GetTotales
         public async Task<TotalesPedidoApiModel> GetTotales(int idPedido)
         {
-            var response = await _http.GetAsync($"api/Pedidos/{idPedido}/totales");
-            string json = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TotalesPedidoApiModel>(json);
+            try
+            {
+                var response = await _http.GetAsync($"api/Pedidos/{idPedido}/totales");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+
+                // Debug
+                System.Diagnostics.Debug.WriteLine($"Totales JSON: {json}");
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    return null;
+                }
+
+                var totales = JsonConvert.DeserializeObject<TotalesPedidoApiModel>(json);
+                 return totales;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener totales del pedido {idPedido}:\n{ex.Message}");
+                return null;
+            }
         }
 
         public async Task<bool> Update(PedidoApiModel model)
@@ -109,9 +134,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<PedidoApiModel>(json);
         }
 
-
-
-
-
+   
     }
 }
