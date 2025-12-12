@@ -40,11 +40,17 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.txtNif = new System.Windows.Forms.TextBox();
+            this.txtDireccionFacturacion = new System.Windows.Forms.TextBox();
+            this.lblNif = new System.Windows.Forms.Label();
+            this.lblDireccionFacturacion = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(145, 206);
+            this.btnCancelar.Location = new System.Drawing.Point(145, 245);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(100, 40);
             this.btnCancelar.TabIndex = 25;
@@ -54,7 +60,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(33, 206);
+            this.btnGuardar.Location = new System.Drawing.Point(33, 245);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(100, 40);
             this.btnGuardar.TabIndex = 24;
@@ -137,11 +143,66 @@
             this.cmbRol.Size = new System.Drawing.Size(100, 21);
             this.cmbRol.TabIndex = 26;
             // 
+            // txtNif
+            // 
+            this.txtNif.Location = new System.Drawing.Point(145, 214);
+            this.txtNif.Name = "txtNif";
+            this.txtNif.Size = new System.Drawing.Size(100, 20);
+            this.txtNif.TabIndex = 30;
+            this.txtNif.Visible = false;
+            // 
+            // txtDireccionFacturacion
+            // 
+            this.txtDireccionFacturacion.Location = new System.Drawing.Point(145, 183);
+            this.txtDireccionFacturacion.Name = "txtDireccionFacturacion";
+            this.txtDireccionFacturacion.Size = new System.Drawing.Size(100, 20);
+            this.txtDireccionFacturacion.TabIndex = 29;
+            this.txtDireccionFacturacion.Visible = false;
+            // 
+            // lblNif
+            // 
+            this.lblNif.Location = new System.Drawing.Point(30, 216);
+            this.lblNif.Name = "lblNif";
+            this.lblNif.Size = new System.Drawing.Size(90, 15);
+            this.lblNif.TabIndex = 28;
+            this.lblNif.Text = "NIF:";
+            this.lblNif.Visible = false;
+            // 
+            // lblDireccionFacturacion
+            // 
+            this.lblDireccionFacturacion.Location = new System.Drawing.Point(30, 179);
+            this.lblDireccionFacturacion.Name = "lblDireccionFacturacion";
+            this.lblDireccionFacturacion.Size = new System.Drawing.Size(90, 30);
+            this.lblDireccionFacturacion.TabIndex = 27;
+            this.lblDireccionFacturacion.Text = "Direccion de Facturacion:";
+            this.lblDireccionFacturacion.Visible = false;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.Location = new System.Drawing.Point(145, 157);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(100, 20);
+            this.txtTelefono.TabIndex = 32;
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.Location = new System.Drawing.Point(30, 157);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(90, 20);
+            this.lblTelefono.TabIndex = 31;
+            this.lblTelefono.Text = "Telefono:";
+            // 
             // FormUsuarioEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 301);
+            this.Controls.Add(this.txtTelefono);
+            this.Controls.Add(this.lblTelefono);
+            this.Controls.Add(this.txtNif);
+            this.Controls.Add(this.txtDireccionFacturacion);
+            this.Controls.Add(this.lblNif);
+            this.Controls.Add(this.lblDireccionFacturacion);
             this.Controls.Add(this.cmbRol);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
@@ -175,5 +236,11 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox cmbRol;
+        private System.Windows.Forms.TextBox txtNif;
+        private System.Windows.Forms.TextBox txtDireccionFacturacion;
+        private System.Windows.Forms.Label lblNif;
+        private System.Windows.Forms.Label lblDireccionFacturacion;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.Label lblTelefono;
     }
 }

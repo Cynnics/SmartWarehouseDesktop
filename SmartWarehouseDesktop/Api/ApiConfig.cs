@@ -6,7 +6,6 @@ namespace SmartWarehouseDesktop.ApiModels
 {
     public static class ApiConfig
     {
-        // Pon aquí la URL REAL de tu API
         public const string BaseUrl = "https://cogent-anderson-alphamerically.ngrok-free.dev";
 
         public static HttpClient GetClient()

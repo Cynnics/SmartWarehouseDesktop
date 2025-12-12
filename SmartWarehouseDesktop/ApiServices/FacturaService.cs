@@ -24,7 +24,6 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // 🔹 Obtener todas las facturas
         public async Task<List<FacturaApiModel>> GetAll()
         {
             var response = await _http.GetAsync("api/Facturas");
@@ -32,7 +31,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<FacturaApiModel>>(json);
         }
 
-        // 🔹 Obtener facturas por pedido
         public async Task<List<FacturaApiModel>> GetByPedido(int idPedido)
         {
             try
@@ -41,15 +39,13 @@ namespace SmartWarehouseDesktop.ApiServices
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new List<FacturaApiModel>(); // Devolver lista vacía en lugar de null
+                    return new List<FacturaApiModel>(); 
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
 
-                // Debug: Ver qué estás recibiendo
                 System.Diagnostics.Debug.WriteLine($"JSON Recibido: {json}");
 
-                // Verificar si el JSON está vacío o es inválido
                 if (string.IsNullOrWhiteSpace(json))
                 {
                     return new List<FacturaApiModel>();
@@ -68,8 +64,6 @@ namespace SmartWarehouseDesktop.ApiServices
                 return new List<FacturaApiModel>();
             }
         }
-
-        // 🔹 Crear factura
         public async Task<bool> Create(FacturaApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -84,7 +78,6 @@ namespace SmartWarehouseDesktop.ApiServices
         }
 
 
-        // 🔹 Borrar factura (hard delete o soft delete según API)
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Facturas/{id}");
@@ -92,12 +85,10 @@ namespace SmartWarehouseDesktop.ApiServices
         }
 
 
-        // 🔹 Comprobar si ya existe factura para un pedido
         public async Task<bool> ExisteFactura(int idPedido)
         {
             var facturas = await GetByPedido(idPedido);
 
-            // Devuelve true si hay al menos una factura para este pedido
             return facturas != null && facturas.Count > 0;
         }
 

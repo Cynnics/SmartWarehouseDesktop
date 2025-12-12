@@ -1,8 +1,6 @@
 ﻿namespace SmartWarehouseDesktop.ApiModels
 {
-    /// <summary>
-    /// Representa un producto según lo devuelve la API.
-    /// </summary>
+ 
     public class ProductApiModel
     {
         public int IdProducto { get; set; }

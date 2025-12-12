@@ -23,7 +23,6 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // GET all
         public async Task<List<AlbaranApiModel>> GetAll()
         {
             var response = await _http.GetAsync("api/Albaranes");
@@ -31,7 +30,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<AlbaranApiModel>>(json);
         }
 
-        // GET by Id
         public async Task<AlbaranApiModel> GetById(int id)
         {
             var response = await _http.GetAsync($"api/Albaranes/{id}");
@@ -39,7 +37,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<AlbaranApiModel>(json);
         }
 
-        // CREATE
         public async Task<bool> Create(AlbaranApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -49,7 +46,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // UPDATE (PATCH)
         public async Task<bool> Update(AlbaranApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -63,29 +59,24 @@ namespace SmartWarehouseDesktop.ApiServices
             var response = await _http.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
-
-        // DELETE
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Albaranes/{id}");
             return response.IsSuccessStatusCode;
         }
 
-        // EXISTE ALBARÁN
         public async Task<bool> ExisteAlbaran(int idPedido)
         {
             var response = await _http.GetAsync($"api/Albaranes/pedido/{idPedido}");
 
             if (!response.IsSuccessStatusCode)
-                return false; // por seguridad, si hay error asumimos que no existe
+                return false; 
 
             var json = await response.Content.ReadAsStringAsync();
 
-            // Si el JSON está vacío o es null, no existe
             if (string.IsNullOrWhiteSpace(json) || json == "null")
                 return false;
 
-            // Deserializamos para comprobar el IdPedido
             var albaran = JsonConvert.DeserializeObject<AlbaranApiModel>(json);
             return albaran != null && albaran.IdPedido == idPedido;
         }

@@ -20,7 +20,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void FormRutasAsignar_Load(object sender, EventArgs e)
         {
-            // Estilos
             UIHelper.EstilizarFormulario(this);
             UIHelper.EstilizarLabel(lblTitulo, true);
             UIHelper.EstilizarLabel(lblPedido);
@@ -34,7 +33,6 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarBoton(btnCancelar);
             UIHelper.EstiloHover(btnCancelar);
 
-            // 1️⃣ Cargar pedidos pendientes
             var pedidos = await _pedidoService.GetAll();
             var pedidosPendiente = pedidos
                 .Where(p => p.Estado == "pendiente" || p.Estado == "preparado")
@@ -45,14 +43,13 @@ namespace SmartWarehouseDesktop.CRUDs
             cmbPedidos.DisplayMember = "IdPedido";
             cmbPedidos.ValueMember = "IdPedido";
 
-            // 2️⃣ Cargar repartidores
             var usuarios = await _usuarioService.GetAll();
             var repartidores = usuarios
                 .Where(u => u.Rol.ToLower() == "repartidor")
                 .ToList();
 
             cmbRepartidor.DataSource = repartidores;
-            cmbRepartidor.DisplayMember = "Nombre";     // puedes usar Nombre + Apellido si quieres
+            cmbRepartidor.DisplayMember = "Nombre";     
             cmbRepartidor.ValueMember = "IdUsuario";
         }
 
@@ -67,7 +64,6 @@ namespace SmartWarehouseDesktop.CRUDs
             int idPedido = (int)cmbPedidos.SelectedValue;
             int idRepartidor = (int)cmbRepartidor.SelectedValue;
 
-            // 1️⃣ Crear la ruta nueva
             var nuevaRuta = new RutaEntregaApiModel
             {
                 IdRepartidor = idRepartidor,
@@ -85,7 +81,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // 2️⃣ Asignar pedido a esa ruta
             bool asignado = await _rutaPedidoService.AsignarPedido(idRutaCreada.Value, idPedido);
 
             if (!asignado)

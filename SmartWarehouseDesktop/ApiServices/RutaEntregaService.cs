@@ -25,27 +25,22 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // GET ALL -> debe coincidir con tu controller: api/Rutas
         public async Task<List<RutaEntregaApiModel>> GetAll()
         {
             var response = await _http.GetAsync("api/Rutas");
             string json = await response.Content.ReadAsStringAsync();
 
-            // DEBUG: mostrar estado y cuerpo si algo falla
             Debug.WriteLine("GetAll Status: " + response.StatusCode);
             Debug.WriteLine("GetAll Body: " + json);
 
             if (!response.IsSuccessStatusCode)
             {
-                // opcional: mostrar un messagebox para depuración rápida en escritorio
-                // MessageBox.Show($"GetAll failed: {response.StatusCode}\n{json}");
                 return null;
             }
 
             return JsonConvert.DeserializeObject<List<RutaEntregaApiModel>>(json);
         }
 
-        // GET BY ID
         public async Task<RutaEntregaApiModel> GetById(int id)
         {
             var response = await _http.GetAsync($"api/Rutas/{id}");
@@ -56,8 +51,6 @@ namespace SmartWarehouseDesktop.ApiServices
             if (!response.IsSuccessStatusCode) return null;
             return JsonConvert.DeserializeObject<RutaEntregaApiModel>(json);
         }
-
-        // CREATE
         public async Task<bool> Create(RutaEntregaApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -70,7 +63,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // UPDATE (PATCH)
         public async Task<bool> Update(RutaEntregaApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -87,7 +79,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // DELETE
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Rutas/{id}");
@@ -97,7 +88,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // Otros auxiliares si los necesitas (GetPedidosDeRuta, etc) -> usar api/Rutas/{id}/pedidos, api/Rutas/{id}/ubicaciones
         public async Task<List<PedidoApiModel>> GetPedidosDeRuta(int id)
         {
             var response = await _http.GetAsync($"api/Rutas/{id}/pedidos");
@@ -132,7 +122,6 @@ namespace SmartWarehouseDesktop.ApiServices
             if (!response.IsSuccessStatusCode)
                 return null;
 
-            // Deserializa directamente a tu propio modelo
             var rutaCreada = JsonConvert.DeserializeObject<RutaEntregaApiModel>(body);
             return rutaCreada.IdRuta;
         }

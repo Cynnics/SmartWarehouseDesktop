@@ -23,7 +23,6 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // GET all users (ADMIN only)
         public async Task<List<UserApiModel>> GetAll()
         {
             var response = await _http.GetAsync("api/Usuarios");
@@ -32,7 +31,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<UserApiModel>>(json);
         }
 
-        // GET single user by ID
         public async Task<UserApiModel> GetById(int id)
         {
             var response = await _http.GetAsync($"api/Usuarios/{id}");
@@ -42,9 +40,7 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<UserApiModel>(json);
         }
 
-
-        // POST create user
-        public async Task<bool> Create(CreateUserApiModel model)
+        public async Task<bool> Create(UserApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -53,15 +49,12 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-
-        // DELETE user
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Usuarios/{id}");
             return response.IsSuccessStatusCode;
         }
 
-        // PATCH for changes (solo si lo necesitas)
         public async Task<bool> Patch(int id, object cambios)
         {
             var json = JsonConvert.SerializeObject(cambios);

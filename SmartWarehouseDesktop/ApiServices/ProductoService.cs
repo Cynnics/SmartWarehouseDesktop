@@ -18,7 +18,6 @@ namespace SmartWarehouseDesktop.ApiServices
             _http = new HttpClient();
             _http.BaseAddress = new Uri(ApiConfig.BaseUrl);
 
-            // SIEMPRE actualizar el token antes de cada operación
             if (!string.IsNullOrEmpty(Session.Token))
             {
                 _http.DefaultRequestHeaders.Authorization =
@@ -52,7 +51,6 @@ namespace SmartWarehouseDesktop.ApiServices
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                // muestra el error en un MessageBox o log
                 System.Diagnostics.Debug.WriteLine("Create error: " + error);
             }
             return response.IsSuccessStatusCode;

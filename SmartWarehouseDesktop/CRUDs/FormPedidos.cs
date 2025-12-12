@@ -98,7 +98,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
             int idPedido = Convert.ToInt32(dgvPedidos.CurrentRow.Cells["IdPedido"].Value);
 
-            // Abre modal con el detalle del pedido
             using (FormDetallesPedido formDetalle = new FormDetallesPedido(idPedido))
             {
                 formDetalle.StartPosition = FormStartPosition.CenterParent;

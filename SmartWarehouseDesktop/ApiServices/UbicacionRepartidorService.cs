@@ -23,15 +23,12 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // GET ALL
         public async Task<List<UbicacionRepartidorApiModel>> GetAll()
         {
             var response = await _http.GetAsync("api/Ubicaciones");
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
-
-        // GET BY REPARTIDOR
         public async Task<List<UbicacionRepartidorApiModel>> GetByRepartidor(int idRep)
         {
             var response = await _http.GetAsync($"api/Ubicaciones/repartidor/{idRep}");
@@ -39,7 +36,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
 
-        // CREATE
         public async Task<bool> Create(UbicacionRepartidorApiModel model)
         {
             string json = JsonConvert.SerializeObject(model);
@@ -49,7 +45,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // DELETE
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Ubicaciones/{id}");
@@ -62,8 +57,6 @@ namespace SmartWarehouseDesktop.ApiServices
             string json = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<UbicacionRepartidorApiModel>>(json);
         }
-
-        // UPDATE
         public async Task<bool> Update(UbicacionRepartidorApiModel model)
         {
             if (model == null || model.IdUbicacion <= 0)

@@ -20,7 +20,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void FormRutas_Load(object sender, EventArgs e)
         {
-            // estilos tuyos
             dgvRutas.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAsignar);
@@ -32,8 +31,7 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarBoton(btnForm);
             UIHelper.EstiloHover(btnForm);
 
-            // configurar DataGridView para usar BindingSource
-            dgvRutas.AutoGenerateColumns = true; // si tienes columnas personalizadas cambia a false
+            dgvRutas.AutoGenerateColumns = true; 
             dgvRutas.DataSource = _bs;
 
             await CargarRutas();

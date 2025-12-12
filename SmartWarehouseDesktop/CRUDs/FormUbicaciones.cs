@@ -10,7 +10,7 @@ namespace SmartWarehouseDesktop.CRUDs
     public partial class FormUbicaciones: Form
     {
         private readonly UbicacionRepartidorService _ubicacionService = new UbicacionRepartidorService();
-        private int idRuta;  // 🔹 Guardamos el id de la ruta
+        private int idRuta;  
 
         public FormUbicaciones()
         {

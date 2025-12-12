@@ -50,18 +50,14 @@ namespace SmartWarehouseDesktop.CRUDs
             {
                 var pedidoSeleccionado = (PedidoApiModel)cmbPedidos.SelectedItem;
 
-                // Verificar si ya existe factura
                 bool existeFactura = await _facturaService.ExisteFactura(pedidoSeleccionado.IdPedido);
                 if (existeFactura)
                 {
                     MessageBox.Show("Ya existe una factura para este pedido.");
                     return;
                 }
-
-                // Obtener totales del pedido
                 var totales = await _pedidoService.GetTotales(pedidoSeleccionado.IdPedido);
 
-                // Validar que los totales no sean null o inválidos
                 if (totales == null)
                 {
                     MessageBox.Show("No se pudieron obtener los totales del pedido.");
@@ -69,7 +65,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 }
                 MessageBox.Show($"Totales obtenidos:\nSubtotal: {totales.Subtotal}\nIVA: {totales.IVA}\nTotal: {totales.Total}");
 
-                // 1️⃣ Crear la factura en la base de datos
                 var nuevaFactura = new FacturaApiModel
                 {
                     IdPedido = pedidoSeleccionado.IdPedido,
@@ -86,7 +81,6 @@ namespace SmartWarehouseDesktop.CRUDs
                     return;
                 }
 
-                // 2️⃣ Obtener la factura recién creada desde la BD (con su ID generado)
                 var facturasDelPedido = await _facturaService.GetByPedido(pedidoSeleccionado.IdPedido);
                 if (facturasDelPedido == null || facturasDelPedido.Count == 0)
                 {
@@ -94,18 +88,14 @@ namespace SmartWarehouseDesktop.CRUDs
                     return;
                 }
 
-                // Tomar la última factura (la recién creada)
                 var facturaCreada = facturasDelPedido[facturasDelPedido.Count - 1];
 
-                // 3️⃣ Obtener el pedido completo
                 var pedido = await _pedidoService.GetById(facturaCreada.IdPedido);
                 if (pedido == null)
                 {
                     MessageBox.Show("No se pudo obtener el pedido asociado a la factura.");
                     return;
                 }
-
-                // 4️⃣ Obtener el cliente
                 var cliente = await _userService.GetById(pedido.IdCliente);
                 if (cliente == null)
                 {
@@ -113,11 +103,9 @@ namespace SmartWarehouseDesktop.CRUDs
                     return;
                 }
 
-                // 5️⃣ Generar el PDF de la factura
                 var pdfGenerator = new PdfGenerator();
                 string rutaPdf = await pdfGenerator.GenerarFacturaPdf(facturaCreada, pedido, cliente);
 
-                // 6️⃣ Abrir automáticamente el PDF
                 PdfGenerator.AbrirPdf(rutaPdf);
 
                 MessageBox.Show($"✓ Factura generada correctamente\n\nPDF creado en:\n{rutaPdf}",
@@ -125,8 +113,6 @@ namespace SmartWarehouseDesktop.CRUDs
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Information);
 
-                // Opcional: Recargar la lista de pedidos
-                // await CargarPedidosEntregados();
             }
             catch (JsonReaderException ex)
             {

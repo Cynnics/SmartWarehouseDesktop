@@ -49,10 +49,8 @@ public class DetallePedidoService
         string json = JsonConvert.SerializeObject(model);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        // Solución para CS0117: HttpMethod no tiene Patch, así que lo creamos manualmente.
         var patchMethod = new HttpMethod("PATCH");
 
-        // Solución para CS1503: El segundo argumento debe ser Uri, no string.
         var requestUri = new Uri(_http.BaseAddress, $"api/DetallePedido/{id}");
 
         var request = new HttpRequestMessage(patchMethod, requestUri)

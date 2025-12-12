@@ -78,7 +78,7 @@ namespace SmartWarehouseDesktop.CRUDs
             using (var frm = new FormDetallePedidoEditar(d))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
-                     CargarDetalles(); // O cargar por pedido
+                     CargarDetalles(); 
             }
         }
 

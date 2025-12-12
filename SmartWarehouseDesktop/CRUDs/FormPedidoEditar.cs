@@ -8,7 +8,7 @@ namespace SmartWarehouseDesktop.CRUDs
     public partial class FormPedidoEditar : Form
     {
         private readonly PedidoService _pedidoService = new PedidoService();
-        private readonly PedidoApiModel _pedido; // null si es nuevo
+        private readonly PedidoApiModel _pedido;
         private readonly bool _esNuevo;
 
         public FormPedidoEditar(PedidoApiModel pedido = null)
@@ -27,7 +27,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 dtpFechaPedido.Value = _pedido.FechaPedido;
                 cmbEstado.SelectedItem = _pedido.Estado;
                 nudCliente.Value = _pedido.IdCliente;
-                nudRepartidor.Value = (int)_pedido.IdRepartidor;
             }
             else
             {
@@ -40,11 +39,17 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarLabel(lblFechaPedido);
             UIHelper.EstilizarLabel(lblEstado);
             UIHelper.EstilizarLabel(lblCliente);
-            UIHelper.EstilizarLabel(lblRepartidor);
+            UIHelper.EstilizarLabel(lblDireccion);
+            UIHelper.EstilizarLabel(lblCiudad);
+            UIHelper.EstilizarLabel(lblCodigoPostal);
+            UIHelper.EstilizarLabel(lblNotas);
+            UIHelper.EstilizarTextBox(txtDireccion);
+            UIHelper.EstilizarTextBox(txtCiudad);
+            UIHelper.EstilizarTextBox(txtCodigoPostal);
+            UIHelper.EstilizarTextBox(txtNotas);
             UIHelper.EstilizarDate(dtpFechaPedido);
             UIHelper.EstilizarComboBox(cmbEstado);
             UIHelper.EstilizarNumeric(nudCliente);
-            UIHelper.EstilizarNumeric(nudRepartidor);
             UIHelper.EstilizarBoton(btnGuardar);
             UIHelper.EstilizarBoton(btnCancelar);
             UIHelper.EstiloHover(btnGuardar);
@@ -60,7 +65,15 @@ namespace SmartWarehouseDesktop.CRUDs
                 FechaPedido = dtpFechaPedido.Value,
                 Estado = cmbEstado.SelectedItem.ToString(),
                 IdCliente = (int)nudCliente.Value,
-                IdRepartidor = (int)nudRepartidor.Value
+
+                IdRepartidor = _esNuevo ? null : _pedido.IdRepartidor,
+
+                DireccionEntrega = txtDireccion.Text,
+                Ciudad = txtCiudad.Text,
+                CodigoPostal = txtCodigoPostal.Text,
+                Latitud = null,
+                Longitud = null,
+                Notas = string.IsNullOrWhiteSpace(txtNotas.Text) ? null : txtNotas.Text
             };
 
             bool ok;
@@ -81,6 +94,7 @@ namespace SmartWarehouseDesktop.CRUDs
                 MessageBox.Show("Error al guardar pedido.");
             }
         }
+
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

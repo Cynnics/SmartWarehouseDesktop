@@ -74,7 +74,6 @@ namespace SmartWarehouseDesktop.Utils
             PdfPTable tabla = new PdfPTable(2) { WidthPercentage = 100 };
             tabla.SetWidths(new float[] { 60f, 40f });
 
-            // Empresa
             PdfPCell celdaEmpresa = new PdfPCell() { Border = Rectangle.NO_BORDER, PaddingBottom = 10 };
             celdaEmpresa.AddElement(new Paragraph("SmartWarehouse", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, ColorPrimario)));
             Font fuenteSub = FontFactory.GetFont(FontFactory.HELVETICA, 10, BaseColor.Gray);
@@ -86,7 +85,6 @@ namespace SmartWarehouseDesktop.Utils
             celdaEmpresa.AddElement(new Paragraph("info@smartwarehouse.com", fuenteSub));
             tabla.AddCell(celdaEmpresa);
 
-            // Factura
             PdfPCell celdaFactura = new PdfPCell() { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT, BackgroundColor = ColorPrimario, Padding = 10 };
             celdaFactura.AddElement(new Paragraph("FACTURA", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.White)) { Alignment = Element.ALIGN_RIGHT });
             Font fuenteDetalle = FontFactory.GetFont(FontFactory.HELVETICA, 11, BaseColor.White);
@@ -179,7 +177,6 @@ namespace SmartWarehouseDesktop.Utils
             PdfPTable tabla = new PdfPTable(5) { WidthPercentage = 100 };
             tabla.SetWidths(new float[] { 8f, 42f, 15f, 17f, 18f });
 
-            // Encabezados
             Font fuenteHeader = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.White);
             string[] headers = { "Nº", "Producto", "Cantidad", "Precio Ud.", "Subtotal" };
             foreach (var h in headers)
@@ -199,18 +196,14 @@ namespace SmartWarehouseDesktop.Utils
 
             foreach (var detalle in detalles)
             {
-                // Validamos valores
                 decimal cantidad = detalle.Cantidad > 0 ? detalle.Cantidad : 0;
                 decimal subtotalDetalle = detalle.Subtotal > 0 ? detalle.Subtotal : 0;
                 decimal precioUnitario = cantidad > 0 ? subtotalDetalle / cantidad : 0;
 
-                // Obtener información del producto
                 var producto = await _productoService.GetById(detalle.IdProducto);
 
-                // Número
                 AgregarCeldaProducto(tabla, contador.ToString(), fuenteContenido, Element.ALIGN_CENTER);
 
-                // Nombre del producto con descripción
                 PdfPCell celdaProducto = new PdfPCell();
                 celdaProducto.HorizontalAlignment = Element.ALIGN_LEFT;
                 celdaProducto.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -236,13 +229,10 @@ namespace SmartWarehouseDesktop.Utils
 
                 tabla.AddCell(celdaProducto);
 
-                // Cantidad
                 AgregarCeldaProducto(tabla, cantidad.ToString(), fuenteContenido, Element.ALIGN_CENTER);
 
-                // Precio unitario
                 AgregarCeldaProducto(tabla, precioUnitario.ToString("C2"), fuenteContenido, Element.ALIGN_RIGHT);
 
-                // Subtotal
                 Font fuenteSubtotal = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, ColorSecundario);
                 AgregarCeldaProducto(tabla, subtotalDetalle.ToString("C2"), fuenteSubtotal, Element.ALIGN_RIGHT);
 
@@ -262,19 +252,15 @@ namespace SmartWarehouseDesktop.Utils
             Font fuenteLabel = FontFactory.GetFont(FontFactory.HELVETICA, 11, ColorSecundario);
             Font fuenteTotal = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, ColorPrimario);
 
-            // Aseguramos valores válidos
             decimal subtotal = Math.Max(0, factura.Subtotal);
             decimal iva = Math.Max(0, factura.IVA);
             decimal total = Math.Max(0, factura.Total);
             decimal porcentajeIva = subtotal > 0 ? (iva / subtotal) * 100 : 21;
 
-            // Subtotal
             AgregarFilaTotales(tabla, "Subtotal:", subtotal.ToString("C2"), fuenteLabel, fuenteLabel);
 
-            // IVA
             AgregarFilaTotales(tabla, $"IVA ({porcentajeIva:F0}%):", iva.ToString("C2"), fuenteLabel, fuenteLabel);
 
-            // Total
             PdfPCell celdaTotalLabel = new PdfPCell(new Phrase("TOTAL:", fuenteTotal))
             {
                 Border = Rectangle.TOP_BORDER,
@@ -392,7 +378,6 @@ namespace SmartWarehouseDesktop.Utils
             PdfPTable tabla = new PdfPTable(2) { WidthPercentage = 100 };
             tabla.SetWidths(new float[] { 60f, 40f });
 
-            // Empresa
             PdfPCell celdaEmpresa = new PdfPCell() { Border = Rectangle.NO_BORDER, PaddingBottom = 10 };
             celdaEmpresa.AddElement(new Paragraph("SmartWarehouse", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, ColorPrimario)));
             Font fuenteSub = FontFactory.GetFont(FontFactory.HELVETICA, 10, BaseColor.Gray);
@@ -404,7 +389,6 @@ namespace SmartWarehouseDesktop.Utils
             celdaEmpresa.AddElement(new Paragraph("info@smartwarehouse.com", fuenteSub));
             tabla.AddCell(celdaEmpresa);
 
-            // Albarán
             PdfPCell celdaAlbaran = new PdfPCell() { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT, BackgroundColor = ColorPrimario, Padding = 10 };
             celdaAlbaran.AddElement(new Paragraph("ALBARÁN", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.White    )) { Alignment = Element.ALIGN_RIGHT });
             celdaAlbaran.AddElement(new Paragraph($"Pedido Nº {pedido.IdPedido:D6}", FontFactory.GetFont(FontFactory.HELVETICA, 11, BaseColor.White)) { Alignment = Element.ALIGN_RIGHT });
@@ -449,7 +433,6 @@ namespace SmartWarehouseDesktop.Utils
                 AgregarFilaDatos(tabla, "Fecha Entrega:", pedido.FechaEntrega.Value.ToString("dd/MM/yyyy HH:mm"), fuenteLabel, fuenteValor);
             }
 
-            // Información del repartidor
             if (pedido.IdRepartidor != 0)
             {
                 var repartidor = await _userService.GetById((int)pedido.IdRepartidor);
@@ -485,7 +468,6 @@ namespace SmartWarehouseDesktop.Utils
             celda.Padding = 10;
             celda.BackgroundColor = ColorFondo;
 
-            // Dirección principal
             string direccionCompleta = !string.IsNullOrEmpty(pedido.DireccionEntrega)
                 ? pedido.DireccionEntrega
                 : pedido.DireccionEntrega;
@@ -495,7 +477,6 @@ namespace SmartWarehouseDesktop.Utils
                 celda.AddElement(new Paragraph(direccionCompleta, fuenteValor));
             }
 
-            // Ciudad y código postal
             string ciudadCP = "";
             if (!string.IsNullOrEmpty(pedido.CodigoPostal))
             {
@@ -511,7 +492,6 @@ namespace SmartWarehouseDesktop.Utils
                 celda.AddElement(new Paragraph(ciudadCP, fuenteValor));
             }
 
-            // Notas adicionales
             if (!string.IsNullOrEmpty(pedido.Notas))
             {
                 Font fuenteNotas = FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, 9, BaseColor.Gray);
@@ -558,10 +538,8 @@ namespace SmartWarehouseDesktop.Utils
 
             foreach (var detalle in detalles)
             {
-                // Obtener información del producto
                 var producto = await _productoService.GetById(detalle.IdProducto);
 
-                // Número
                 tabla.AddCell(new PdfPCell(new Phrase(contador.ToString(), fuenteContenido))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
@@ -570,7 +548,6 @@ namespace SmartWarehouseDesktop.Utils
                     BorderColor = new BaseColor(220, 220, 220)
                 });
 
-                // Producto con descripción
                 PdfPCell celdaProducto = new PdfPCell();
                 celdaProducto.HorizontalAlignment = Element.ALIGN_LEFT;
                 celdaProducto.VerticalAlignment = Element.ALIGN_MIDDLE;
@@ -590,7 +567,6 @@ namespace SmartWarehouseDesktop.Utils
 
                 tabla.AddCell(celdaProducto);
 
-                // Cantidad
                 tabla.AddCell(new PdfPCell(new Phrase(detalle.Cantidad.ToString(), fuenteContenido))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
@@ -626,7 +602,6 @@ namespace SmartWarehouseDesktop.Utils
 
             Font fuenteFirma = FontFactory.GetFont(FontFactory.HELVETICA, 11, ColorSecundario);
 
-            // Firma del repartidor
             PdfPCell celdaRepartidor = new PdfPCell();
             celdaRepartidor.Border = Rectangle.NO_BORDER;
             celdaRepartidor.PaddingTop = 20;
@@ -643,7 +618,6 @@ namespace SmartWarehouseDesktop.Utils
 
             tablaFirmas.AddCell(celdaRepartidor);
 
-            // Firma del receptor
             PdfPCell celdaReceptor = new PdfPCell();
             celdaReceptor.Border = Rectangle.NO_BORDER;
             celdaReceptor.PaddingTop = 20;
@@ -658,7 +632,6 @@ namespace SmartWarehouseDesktop.Utils
 
             doc.Add(tablaFirmas);
 
-            // Nota legal
             doc.Add(new Paragraph(" "));
             Font fuenteNota = FontFactory.GetFont(FontFactory.HELVETICA, 7, BaseColor.Gray);
             Paragraph nota = new Paragraph(

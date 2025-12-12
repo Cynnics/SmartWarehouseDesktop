@@ -42,7 +42,7 @@ namespace SmartWarehouseDesktop.ApiServices
 
         public async Task<bool> PatchEstado(int id, string nuevoEstado)
         {
-            var json = $"\"{nuevoEstado}\""; // se envía como string plano JSON
+            var json = $"\"{nuevoEstado}\""; 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"api/Pedidos/{id}/estado");
@@ -56,8 +56,10 @@ namespace SmartWarehouseDesktop.ApiServices
         public async Task<bool> Delete(int id)
         {
             var response = await _http.DeleteAsync($"api/Pedidos/{id}");
-            return response.IsSuccessStatusCode;
+            return response.StatusCode == System.Net.HttpStatusCode.NoContent
+                || response.IsSuccessStatusCode;
         }
+
 
         public async Task<List<PedidoApiModel>> GetEntregados()
         {
@@ -66,7 +68,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return JsonConvert.DeserializeObject<List<PedidoApiModel>>(json);
         }
 
-        // En PedidoService.cs - MEJORAR GetTotales
         public async Task<TotalesPedidoApiModel> GetTotales(int idPedido)
         {
             try
@@ -80,7 +81,6 @@ namespace SmartWarehouseDesktop.ApiServices
 
                 string json = await response.Content.ReadAsStringAsync();
 
-                // Debug
                 System.Diagnostics.Debug.WriteLine($"Totales JSON: {json}");
 
                 if (string.IsNullOrWhiteSpace(json))
@@ -110,7 +110,6 @@ namespace SmartWarehouseDesktop.ApiServices
 
         public async Task<bool> UpdateRepartidor(int idPedido, int idRepartidor, string estado)
         {
-            // Crear objeto mínimo
             var payload = new
             {
                 IdRepartidor = idRepartidor,
@@ -119,11 +118,11 @@ namespace SmartWarehouseDesktop.ApiServices
 
             string json = JsonConvert.SerializeObject(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            MessageBox.Show(""+idRepartidor + idPedido);
-            // Llamar al nuevo endpoint
+
             var response = await _http.PutAsync($"api/Pedidos/PutPedidoRepartidor/{idPedido}", content);
             return response.IsSuccessStatusCode;
         }
+
 
         public async Task<PedidoApiModel> GetById(int idPedido)
         {

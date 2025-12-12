@@ -25,7 +25,6 @@ namespace SmartWarehouseDesktop.CRUDs
             
         private async void FormAlbaranEditar_Load(object sender, EventArgs e)
         {
-            // Estilos
             UIHelper.EstilizarFormulario(this);
             UIHelper.EstilizarLabel(lblTitulo, true);
             UIHelper.EstilizarLabel(lblPedido);
@@ -39,9 +38,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
             var pedidos = await _pedidoService.GetAll();
             
-            //var pedidosPendiente = pedidos.Where(p => p.Estado == "pendiente").ToList();
-            //cmbPedidos.DataSource = pedidosPendiente;
-
             var pedidosEntregados = pedidos.Where(p => p.Estado == "entregado").ToList();
             cmbPedidos.DataSource = pedidosEntregados;
             cmbPedidos.DisplayMember = "IdPedido";
@@ -66,13 +62,12 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // 1️⃣ Crear albarán en la BBDD
             var albaran = new AlbaranApiModel
             {
                 IdPedido = pedidoSeleccionado.IdPedido,
                 FechaGeneracion = DateTime.Now,
                 EntregadoPor = (int)pedidoSeleccionado.IdRepartidor,
-                RecibidoPor = "",  // Se puede actualizar después
+                RecibidoPor = "",  
                 Estado = "generado"
             };
 
@@ -84,7 +79,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // 2️⃣ Generar PDF del albarán
             try
             {
                 string rutaPdf = await _pdfGenerator.GenerarAlbaranPdf(pedidoSeleccionado);

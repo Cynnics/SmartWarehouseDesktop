@@ -9,7 +9,7 @@ namespace SmartWarehouseDesktop.CRUDs
     public partial class FormProductoEditar : Form
     {
         private readonly ProductoService _service = new ProductoService();
-        private readonly ProductApiModel producto; // null = agregar
+        private readonly ProductApiModel producto; 
 
         public FormProductoEditar(ProductApiModel producto = null)
         {
@@ -61,9 +61,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // ---------------------------
-            // 1) AGREGAR NUEVO PRODUCTO
-            // ---------------------------
             if (producto == null)
             {
                 var nuevo = new ProductApiModel
@@ -91,9 +88,6 @@ namespace SmartWarehouseDesktop.CRUDs
                 return;
             }
 
-            // ---------------------------
-            // 2) EDITAR (PATCH)
-            // ---------------------------
             var cambios = new Dictionary<string, object>();
 
             if (txtNombre.Text != producto.Nombre)

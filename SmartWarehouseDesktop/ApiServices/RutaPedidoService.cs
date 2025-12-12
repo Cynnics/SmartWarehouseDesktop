@@ -24,7 +24,6 @@ namespace SmartWarehouseDesktop.ApiServices
                     new AuthenticationHeaderValue("Bearer", Session.Token);
         }
 
-        // ASIGNAR PEDIDO A RUTA
         public async Task<bool> AsignarPedido(int idRuta, int idPedido)
         {
             var response = await _http.PostAsync(
@@ -33,7 +32,6 @@ namespace SmartWarehouseDesktop.ApiServices
             return response.IsSuccessStatusCode;
         }
 
-        // GET pedidos de ruta
         public async Task<List<PedidoApiModel>> GetPedidos(int idRuta)
         {
             var response = await _http.GetAsync($"api/Rutas/{idRuta}/pedidos");

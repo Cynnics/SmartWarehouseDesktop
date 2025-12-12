@@ -21,7 +21,6 @@ namespace SmartWarehouseDesktop.CRUDs
 
         private async void FormProductos_Load(object sender, EventArgs e)
         {
-            // Estilos tuyos
             dgvProductos.DefaultCellStyle.Font = TemaApp.FuenteGeneral;
             lblTitulo.Font = TemaApp.FuenteTitulo;
             UIHelper.EstilizarBoton(btnAgregar);
@@ -33,14 +32,13 @@ namespace SmartWarehouseDesktop.CRUDs
             UIHelper.EstilizarBoton(btnEliminar);
             UIHelper.EstiloHover(btnEliminar);
 
-            // Configurar DataGridView con BindingSource
-            dgvProductos.AutoGenerateColumns = true; // o false si tienes columnas hechas
+         
+            dgvProductos.AutoGenerateColumns = true; 
             dgvProductos.DataSource = _bs;
 
             await CargarProductos();
         }
 
-        // Cargar desde API
         private async Task CargarProductos()
         {
             try
@@ -54,7 +52,6 @@ namespace SmartWarehouseDesktop.CRUDs
                     return;
                 }
 
-                // Asignar al BindingSource
                 _bs.DataSource = productos;
             }
             catch (Exception ex)
