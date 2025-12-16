@@ -108,7 +108,7 @@ namespace SmartWarehouseDesktop.CRUDs
 
                 PdfGenerator.AbrirPdf(rutaPdf);
 
-                MessageBox.Show($"✓ Factura generada correctamente\n\nPDF creado en:\n{rutaPdf}",
+                MessageBox.Show($"Factura generada correctamente\n\nPDF creado en:\n{rutaPdf}",
                                "Éxito",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Information);
